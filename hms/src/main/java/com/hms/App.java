@@ -1,5 +1,7 @@
 package com.hms;
 
+import java.time.LocalDate;
+
 /**
  * Hello world!
  */
@@ -10,7 +12,7 @@ public final class App {
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
-        People person = new People("John Doe", "123456", true, 30);
-        System.out.println(person.getName()); // test output
+        LocalDate date = LocalDate.of(2000, 3, 20);
+        System.out.println(date); // test output
     }
 }
