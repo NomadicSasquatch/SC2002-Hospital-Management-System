@@ -10,6 +10,7 @@ public final class App {
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        People person = new People("John Doe", "123456", true, 30);
+        System.out.println(person.getName()); // test output
     }
 }
