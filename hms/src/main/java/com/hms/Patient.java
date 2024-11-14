@@ -2,7 +2,7 @@ package com.hms;
 
 import java.time.LocalDate;
 
-public class Patient extends People {
+public class Patient extends User {
 
     public Patient(String name, String userID, boolean isActive, int age) {
         super(name, userID, isActive, age);

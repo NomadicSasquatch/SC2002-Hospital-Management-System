@@ -1,18 +1,18 @@
 package com.hms;
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 public class Appointment {
     private Doctor doctor;
     private Patient patient;
-    private LocalTime appointmentDate; //check if tallies with UML intention
-    private AppointmentStatus status;
+    private int appointmentID;
+    private LocalDate appointmentDate; //check if tallies with UML intention
+    private AppointmentStatus status = AppointmentStatus.PENDING;
 
-    public Appointment(Doctor doctor, Patient patient, LocalTime appointmentDate, AppointmentStatus status) {
+    public Appointment(Doctor doctor, Patient patient, LocalDate appointmentDate) {
         this.doctor = doctor;
         this.patient = patient;
         this.appointmentDate = appointmentDate;
         //doublecheck
-        this.status = status;
     }
 
     public Doctor getDoctor() {
@@ -21,5 +21,9 @@ public class Appointment {
 
     public Patient getPatient() {
         return patient;
+    }
+
+    public int getAppointmentID() {
+        return appointmentID;
     }
 }

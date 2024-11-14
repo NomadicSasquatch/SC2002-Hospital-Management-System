@@ -5,29 +5,48 @@ public class AppointmentOutcomeRecord {
     private Appointment appointment;
     private List<Medication> prescribedMedications;
     private String consultationNotes;
+    private Services typeOfService;
 
-    public AppointmentOutcomeRecord(Appointment appointment, List<Medication> prescribedMedications, String consultationNotes) {
+    public AppointmentOutcomeRecord(Appointment appointment) {
         this.appointment = appointment;
-        //declaration of list is awkward
+    }
+
+    public AppointmentOutcomeRecord(Appointment appointment, List<Medication> prescribedMedications, String consultationNotes, Services typeOfService) {
+        this.appointment = appointment;
         this.prescribedMedications = prescribedMedications;
         this.consultationNotes = consultationNotes;
+        this.typeOfService = typeOfService;
+    }
+    public Appointment getAppointment() {
+        return this.appointment;
     }
 
-    public void updateMedication(Medication medication) {
-        //is there no deletion of medication
-        prescribedMedications.add(medication);
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
     }
-    //wtf is going on here
-    public List<Medication> getMedication() {
-        return prescribedMedications;
+
+    public List<Medication> getPrescribedMedications() {
+        return this.prescribedMedications;
     }
-    //UML says to return the string
-    public void updateNotes(String consultationNotes) {
+
+    public void setPrescribedMedications(List<Medication> prescribedMedications) {
+        this.prescribedMedications = prescribedMedications;
+    }
+
+    public String getConsultationNotes() {
+        return this.consultationNotes;
+    }
+
+    public void setConsultationNotes(String consultationNotes) {
         this.consultationNotes = consultationNotes;
     }
-    //check
-    public void createAppointmentOutcomeRecord() {
 
+    public Services getTypeOfService() {
+        return this.typeOfService;
+    }
+
+    public void setTypeOfService(Services typeOfService) {
+        this.typeOfService = typeOfService;
     }
 
 }

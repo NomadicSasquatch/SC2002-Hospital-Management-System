@@ -12,7 +12,7 @@ import java.time.LocalDate;
  * @param age    the age of the doctor
  * @param role   the role of the doctor
  */
-public class Doctor extends People {
+public class Doctor extends User {
 
     private String role;
 

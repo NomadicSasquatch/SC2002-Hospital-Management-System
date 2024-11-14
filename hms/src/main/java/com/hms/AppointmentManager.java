@@ -1,42 +1,56 @@
 package com.hms;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AppointmentManager {
-    private Map<Doctor, List<Appointment>> doctorAppointments;
-    private Map<Patient, List<Appointment>> patientAppointments;
-    
-    public AppointmentManager() {
 
-    }
-    //should this be appointment input
-    public void bookAppointment(Patient patient, Doctor doctor, LocalTime appointmentDate) {
-        
-    }
-    //should this not be patient and doctor inputs 
-    public void cancelAppointment(Appointment appointment) {
+    private IDataServices<Appointment> patientManager;
+    private IDataServices<Appointment> doctorManager;
 
+    public AppointmentManager(IDataServices<Appointment> patientManager, IDataServices<Appointment> doctorManager) {
+        this.patientManager = patientManager;
+        this.doctorManager = doctorManager;
     }
 
-    public void rescheduleAppointment(Appointment appointment) {
-
+    public void addAppointment(Appointment appointment) {
+        patientManager.add(appointment);
+        doctorManager.add(appointment);
     }
 
-    public void viewSchedule(Doctor doctor) {
-
+    public void removeAppointment(Appointment appointment) {
+        patientManager.remove(appointment);
+        doctorManager.remove(appointment);
     }
 
-    public List<Appointment> viewDoctorAppointments(Doctor doctor) {
-
+    public List<Appointment> viewPatientAppointment(User user) {
+        return patientManager.view(user);
     }
 
-    public List<Appointment> viewPatientAppointments(Patient patient) {
-
+    public List<Appointment> viewDoctorAppointment(User user) {
+        return doctorManager.view(user);
     }
 
-    public void updateAppointmentStatus(Appointment appointment, AppointmentStatus status) {
-        
+    public void rescheduleAppointment(User user) {
+        rescheduleAppointment(user);
     }
+
+    public IDataServices<Appointment> getPatientManager() {
+        return this.patientManager;
+    }
+
+    public void setPatientManager(PatientAppointmentServices patientManager) {
+        this.patientManager = patientManager;
+    }
+
+    public IDataServices<Appointment> getDoctorManager() {
+        return this.doctorManager;
+    }
+
+    public void setDoctorManager(DoctorAppointmentServices doctorManager) {
+        this.doctorManager = doctorManager;
+    }
+
 }
