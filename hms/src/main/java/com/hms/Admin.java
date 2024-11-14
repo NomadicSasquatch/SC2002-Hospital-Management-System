@@ -1,3 +1,5 @@
+package com.hms;
+
 import java.time.LocalDate;
 
 public class Admin extends User {

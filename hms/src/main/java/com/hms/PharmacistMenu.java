@@ -1,3 +1,6 @@
+package com.hms;
+
+
 import java.util.Scanner;
 
 public class PharmacistMenu implements Menu {

@@ -1,3 +1,5 @@
+package com.hms;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +21,7 @@ public class LoginMenu {
         Scanner scanner = new Scanner(System.in);
 
         // ASCII Art for HMS (Hospital Management System) with a large "+" on both sides
-        String asciiTitle = """
+        String asciiTitle = """;
          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
          +                H   H  M   M  SSSSS                 +
          +                H   H  MM MM  S                     +

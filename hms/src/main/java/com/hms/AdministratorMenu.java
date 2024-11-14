@@ -1,3 +1,5 @@
+package com.hms;
+
 public class AdministratorMenu implements Menu {
     @Override
     public void displayMenu() {
