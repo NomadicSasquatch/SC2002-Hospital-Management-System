@@ -17,10 +17,10 @@ public final class App {
         // LocalDate date = LocalDate.of(2000, 3, 20);
         // System.out.println(date); // test output
 
-        CSVFile testinput = new CSVFile("hms/src/main/java/com/hms/test_csv.csv");
+        CSVFile testinput = new CSVFile("hms/src/main/java/com/data/test_csv.csv");
 
-        System.out.printf("%s\n",(testinput.getRecords())); // test output
-        
+        System.out.printf("%s\n",(testinput.getAllRecords())); // test output
+        testinput.updateCSVFile();
 
         UserRole test = UserRole.ADMIN;
         System.out.printf("%s, %d", test, test.ordinal()); // test output
