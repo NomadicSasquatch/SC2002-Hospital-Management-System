@@ -10,18 +10,17 @@ public class LoginMenu {
 
     public LoginMenu() {
         // Adding sample users for demonstration purposes
-        users.put("P123", new Patient("P123", "John Doe", UserRole.PATIENT, "john.doe@example.com", true, LocalDate.of(1990, 5, 10), "password123"));
-        users.put("D123", new Doctor("D456", "Dr. Smith", UserRole.DOCTOR, "dr.smith@example.com", true, LocalDate.of(1980, 6, 15), "password123"));
+        //users.put("P123", new Patient("P123", "John Doe", UserRole.PATIENT, "john.doe@example.com", true, LocalDate.of(1990, 5, 10), "password123"));
+        //users.put("D123", new Doctor("D456", "Dr. Smith", UserRole.DOCTOR, "dr.smith@example.com", true, LocalDate.of(1980, 6, 15), "password123"));
         users.put("PM123", new Pharmacist("P123", "John Doe", UserRole.PHARMACIST, "john.doe@example.com", true, LocalDate.of(1990, 5, 10), "password123"));
-        users.put("A123", new Admin("D456", "Dr. Smith", UserRole.ADMINISTRATOR, "dr.smith@example.com", true, LocalDate.of(1980, 6, 15), "password123"));
-        
+        users.put("A123", new Admin("D456", "Dr. Smith", UserRole.ADMINISTRATOR, "dr.smith@example.com", true, LocalDate.of(1980, 6, 15), "password123"));    
     }
 
     public void displayMenu() {
         Scanner scanner = new Scanner(System.in);
 
-        // ASCII Art for HMS (Hospital Management System) with a large "+" on both sides
-        String asciiTitle = """;
+        
+        String asciiTitle = """
          ++++++++++++++++++++++++++++++++++++++++++++++++++++++
          +                H   H  M   M  SSSSS                 +
          +                H   H  MM MM  S                     +

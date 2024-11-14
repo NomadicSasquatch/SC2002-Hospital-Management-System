@@ -30,6 +30,7 @@ public class Doctor extends People {
         this.role = role;
     }
 
+
     /**
      * Displays the doctor's dashboard.
      * TODO: Implement viewDashboard method.
