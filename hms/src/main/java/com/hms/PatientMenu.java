@@ -222,26 +222,37 @@ public class PatientMenu implements Menu {
         System.out.println("\n======================================================");
         System.out.println("          SCHEDULE AN APPOINTMENT                    ");
         System.out.println("======================================================");
-        System.out.println("\n Appointment successfully scheduled for:");
+        System.out.print("Enter appointment date (YYYY-MM-DD): ");
+        String date = scanner.nextLine();
+        System.out.print("Enter appointment time (HH:MM): ");
+        String time = scanner.nextLine();
+        System.out.println("\nAppointment successfully scheduled for:");
+        System.out.println("Date: " + date);
+        System.out.println("Time: " + time);
         System.out.println("======================================================");
         returnToMenu();
     }
+    
 
     private void rescheduleAppointment() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n======================================================");
         System.out.println("          RESCHEDULE AN APPOINTMENT                  ");
         System.out.println("======================================================");
-        System.out.print("   Enter appointment ID to reschedule: ");
+        System.out.print("Enter appointment ID to reschedule: ");
         int appointmentId = scanner.nextInt();
         scanner.nextLine(); // Consume newline
-        System.out.print("   Enter new date (YYYY-MM-DD): ");
+        System.out.print("Enter new date (YYYY-MM-DD): ");
         String newDate = scanner.nextLine();
-        System.out.println("\n Appointment ID " + appointmentId + " successfully rescheduled to:");
-        System.out.println("    " + newDate);
+        System.out.print("Enter new time (HH:MM): ");
+        String newTime = scanner.nextLine();
+        System.out.println("\nAppointment ID " + appointmentId + " successfully rescheduled to:");
+        System.out.println("Date: " + newDate);
+        System.out.println("Time: " + newTime);
         System.out.println("======================================================");
         returnToMenu();
     }
+    
 
     private void cancelAppointment() {
         Scanner scanner = new Scanner(System.in);
