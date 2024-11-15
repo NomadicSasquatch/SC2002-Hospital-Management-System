@@ -75,7 +75,7 @@ public class DoctorMenu implements Menu {
     }
 
     /* DUMMY METHODS FOR UI - TO DELETE ONCE IMPLEMENTATION IS COMPLETED */
-    
+
     // Test Case 9: View Patient Medical Records
 private void viewPatientMedicalRecords() {
     System.out.println("\n========================================================");
@@ -456,5 +456,10 @@ private void recordAppointmentOutcome() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("\nPress [Enter] to return to the main menu...");
         scanner.nextLine();
+    }
+
+    public static void main(String[] args) {
+        DoctorMenu doctorMenu = new DoctorMenu();
+        doctorMenu.displayMenu();
     }
 }

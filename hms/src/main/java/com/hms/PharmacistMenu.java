@@ -189,4 +189,9 @@ public class PharmacistMenu implements Menu {
         System.out.print("\nPress [Enter] to return to the main menu...");
         scanner.nextLine();
     }
+
+    public static void main(String[] args) {
+        PharmacistMenu pharmacistMenu = new PharmacistMenu();
+        pharmacistMenu.displayMenu();
+    }
 }

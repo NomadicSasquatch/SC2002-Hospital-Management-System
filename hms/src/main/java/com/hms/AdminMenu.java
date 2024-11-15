@@ -61,7 +61,7 @@ public class AdminMenu implements Menu {
     }
 
     /* DUMMY METHODS FOR UI - TO DELETE ONCE IMPLEMENTATION IS COMPLETED */
-    
+
     // Test Case 20: View and Manage Hospital Staff
     private void viewAndManageHospitalStaff() {
         System.out.println("\n====================================================");
@@ -238,5 +238,10 @@ private void updateMedicationInventory(String medicationId, int quantityToAdd) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("\nPress [Enter] to return to the main menu...");
         scanner.nextLine();
+    }
+
+    public static void main(String[] args) {
+        AdminMenu adminMenu = new AdminMenu();
+        adminMenu.displayMenu();
     }
 }

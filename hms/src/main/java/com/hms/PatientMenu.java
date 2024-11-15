@@ -333,4 +333,9 @@ public class PatientMenu implements Menu {
         System.out.print("\nPress [Enter] to return to the main menu...");
         scanner.nextLine();
     }
+
+    public static void main(String[] args) {
+        PatientMenu patientMenu = new PatientMenu();
+        patientMenu.displayMenu();
+    }
 }
