@@ -5,15 +5,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.enumclass.UserRole;
+
 public class LoginMenu {
-    private Map<String, User> users = new HashMap<>();
+    private Map<String, Users> users = new HashMap<>();
 
     public LoginMenu() {
         // Adding sample users for demonstration purposes
         //users.put("P123", new Patient("P123", "John Doe", UserRole.PATIENT, "john.doe@example.com", true, LocalDate.of(1990, 5, 10), "password123"));
         //users.put("D123", new Doctor("D456", "Dr. Smith", UserRole.DOCTOR, "dr.smith@example.com", true, LocalDate.of(1980, 6, 15), "password123"));
-        users.put("PM123", new Pharmacist("P123", "John Doe", UserRole.PHARMACIST, "john.doe@example.com", true, LocalDate.of(1990, 5, 10), "password123"));
-        users.put("A123", new Admin("D456", "Dr. Smith", UserRole.ADMINISTRATOR, "dr.smith@example.com", true, LocalDate.of(1980, 6, 15), "password123"));    
+        //users.put("PM123", new Pharmacist("P123", "John Doe", UserRole.PHARMACIST, "john.doe@example.com", true, LocalDate.of(1990, 5, 10), "password123"));
+        //users.put("A123", new Admin("D456", "Dr. Smith", UserRole.ADMIN, "dr.smith@example.com", true, LocalDate.of(1980, 6, 15), "password123"));    
     }
 
     public void displayMenu() {
@@ -48,15 +50,15 @@ public class LoginMenu {
             String password = scanner.nextLine();
 
             // Checking if the user exists and the password matches
-            User user = users.get(hospitalID);
-
-            if (user != null && user.password.equals(password)) {
-                System.out.println("\n\tLogin successful. Welcome, " + user.name + "!");
-                user.displayMenu(); // Show the appropriate menu for the user role
-                break; // Exit the loop if login is successful
-            } else {
-                System.out.println("\n\t[ERROR] Invalid credentials. Please try again.");
-            }
+            Users user = users.get(hospitalID);
+            // TODO: Implement password hashing and comparison
+            // if (user != null && user.password.equals(password)) {
+            //     System.out.println("\n\tLogin successful. Welcome, " + user.name + "!");
+            //     user.displayMenu(); // Show the appropriate menu for the user role
+            //     break; // Exit the loop if login is successful
+            // } else {
+            //     System.out.println("\n\t[ERROR] Invalid credentials. Please try again.");
+            // }
         }
     }
 

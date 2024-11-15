@@ -2,11 +2,13 @@ package com.hms;
 
 import java.time.LocalDate;
 
-public class Admin extends User {
+import com.enumclass.UserRole;
+
+public class Admin extends Users {
 
     // Constructor with full parameters
-    public Admin(String hospitalID, String name, UserRole role, String email, boolean gender, LocalDate dob, String password) {
-        super(hospitalID, name, role, email, gender, dob, password);
+    public Admin(String userid, String email, String name, String hashedpassword, LocalDate dob, UserRole role, boolean gender) {
+        super(userid, email, name, hashedpassword, dob, role, gender);
         this.menu = new AdminMenu();  
     }
 

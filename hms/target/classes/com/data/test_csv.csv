@@ -29,3 +29,9 @@
 "A007","Sarah Lee","Administrator","Female","-23.2"
 "D015","John Smith","Doctor","Male","-25.6"
 "D016","Emily Clarke","Doctor","Female","-28"
+
+"D0123", "doctor1@bmail.com", "Bob", "688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6", "DOB", "DOCTOR", "1"
+
+
+patient1, 0
+[patient1, a, b, c]

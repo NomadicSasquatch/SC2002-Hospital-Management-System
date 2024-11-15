@@ -7,8 +7,9 @@ package com.enumclass;
  * <li>{@link #SCHEDULED} - The appointment has been scheduled but not yet confirmed.   </li>
  * <li>{@link #CANCELLED} - The appointment has been cancelled.                         </li>
  * <li>{@link #COMPLETED} - The appointment has been completed.                         </li>
+ * <li>{@link #PENDING}   - The appointment is still pending.                           </li>
  * </ul>
  */
 public enum AppointmentStatus {
-    CONFIRMED, SCHEDULED, CANCELLED, COMPLETED;
+    CONFIRMED, SCHEDULED, CANCELLED, COMPLETED, PENDING;
 }

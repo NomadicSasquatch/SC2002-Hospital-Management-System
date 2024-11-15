@@ -26,8 +26,9 @@ public abstract class Users {
     private LocalDate dob;
     private UserRole role;
     private boolean gender;
+    public Menu menu;
 
-    public Users(String email, String name, String hashedpassword, String userid, LocalDate dob, UserRole role, boolean gender) {
+    public Users(String userid, String email, String name, String hashedpassword, LocalDate dob, UserRole role, boolean gender) {
         this.email = email;
         this.name = name;
         this.hashedpassword = hashedpassword;
@@ -95,6 +96,14 @@ public abstract class Users {
      */
     public String gethashedPassword() {
         return hashedpassword;
+    }
+
+    public void displayMenu() {
+        if (menu != null) {
+            menu.displayMenu(); // Call the appropriate displayMenu() for the specific user role
+        } else {
+            System.out.println("Menu not available for this role.");
+        }
     }
 
     /**

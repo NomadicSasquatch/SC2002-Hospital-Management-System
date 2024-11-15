@@ -2,10 +2,12 @@ package com.hms;
 
 import java.time.LocalDate;
 
-public class Patient extends People {
+import com.enumclass.UserRole;
 
-    public Patient(String name, String userID, boolean isActive, int age) {
-        super(name, userID, isActive, age);
+public class Patient extends Users {
+
+    public Patient(String userid, String email, String name, String hashedpassword, LocalDate dob, UserRole role, boolean gender) {
+        super(userid, email, name, hashedpassword, dob, role, gender);
     }
 
     /**
