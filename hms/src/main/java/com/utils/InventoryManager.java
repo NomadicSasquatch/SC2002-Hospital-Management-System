@@ -17,7 +17,8 @@ import java.io.IOException;
  * - Dosage: The dosage of the medication.
  * 
  */
-public class Inventory {
+@SuppressWarnings("unused")
+public class InventoryManager {
     private static final String INVENTORY_FILE = "hms/src/main/java/com/data/inventory.csv";
     private static final int MEDICATION = 0;
     private static final int QUANTITY = 1;
@@ -25,9 +26,9 @@ public class Inventory {
 
     private CSVFile stock;
 
-    private static Inventory instance;
+    private static InventoryManager instance;
 
-    private Inventory() {
+    private InventoryManager() {
         File file = new File(INVENTORY_FILE);
         if (!file.exists()) {
             try {
@@ -43,9 +44,9 @@ public class Inventory {
         stock = new CSVFile(INVENTORY_FILE);
     }
 
-    public static Inventory getInstance() {
+    public static InventoryManager getInstance() {
         if (instance == null) {
-            instance = new Inventory();
+            instance = new InventoryManager();
         }
         return instance;
     }
