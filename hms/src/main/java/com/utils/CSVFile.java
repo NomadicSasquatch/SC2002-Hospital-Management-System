@@ -165,6 +165,10 @@ public class CSVFile {
         }
     }
 
+    public boolean hasRecord(String ID) {
+        return recordIndex.containsKey(ID);
+    }
+
     /**
      * Removes a record with the specified ID from the records.
      *

@@ -1,5 +1,7 @@
 package com.hms.Viewer;
 
+import com.enumclass.UserRole;
+
 public class PharmacistViewer extends UserViewer {
 
     @Override

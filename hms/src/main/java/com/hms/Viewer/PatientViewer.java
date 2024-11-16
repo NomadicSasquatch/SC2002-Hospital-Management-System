@@ -1,5 +1,7 @@
 package com.hms.Viewer;
 
+import com.enumclass.UserRole;
+
 public class PatientViewer extends UserViewer {
 
     @Override
@@ -27,6 +29,11 @@ public class PatientViewer extends UserViewer {
                 break;
         }
         return choice;
+    }
+
+    @Override
+    public UserRole getRole() {
+        return UserRole.PATIENT;
     }
 
 }

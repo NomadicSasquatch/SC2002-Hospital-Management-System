@@ -21,7 +21,7 @@ import java.util.Arrays;
 import com.enumclass.UserRole;
 import com.hms.TOBEREFACTORED.Menu;
 
-public abstract class Users {
+public class Users {
 
     private String email, name, hashedpassword, userid;
     private LocalDate dob;

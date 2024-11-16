@@ -20,7 +20,7 @@ import java.io.IOException;
  * 
  */
 @SuppressWarnings("unused")
-public class InventoryManager{
+public class InventoryManager {
     private static final String INVENTORY_FILE = "hms/src/main/java/com/data/inventory.csv";
     private static final int MEDICATION = 0;
     private static final int QUANTITY = 1;
