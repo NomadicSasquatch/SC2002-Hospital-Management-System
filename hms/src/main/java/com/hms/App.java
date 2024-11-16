@@ -3,6 +3,7 @@ package com.hms;
 import java.time.LocalDate;
 
 import com.enumclass.UserRole;
+import com.hms.Viewer.LoginMenu;
 import com.utils.CSVFile;
 
 /**
@@ -27,13 +28,13 @@ public final class App {
         // UserRole test = UserRole.ADMIN;
         // System.out.printf("%s, %d", test, test.ordinal()); // test output
 
-        LocalDate date = LocalDate.of(2000, 3, 20);
-        System.out.println(date); // test output
+        // LocalDate date = LocalDate.of(2000, 3, 20);
+        // System.out.println(date); // test output
 
-        LoginMenu loginMenu = new LoginMenu();
+        // LoginMenu loginMenu = new LoginMenu();
         
         // Start the login process
-        loginMenu.displayMenu();
+        //loginMenu.displayMenu();
     }
     //randomtest
 }
