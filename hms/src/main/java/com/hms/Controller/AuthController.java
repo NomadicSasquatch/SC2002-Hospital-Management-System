@@ -28,6 +28,7 @@ public class AuthController {
         try {
             csv.add(List.of(userid, email, name, Users.hashPassword(password), dob.toString(), role.toString(),
                     String.valueOf(gender)));
+            csv.updateCSVFile();
             return true;
         } catch (Exception e) {
             return false;

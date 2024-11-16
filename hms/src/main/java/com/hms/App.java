@@ -31,10 +31,11 @@ public final class App {
         // LocalDate date = LocalDate.of(2000, 3, 20);
         // System.out.println(date); // test output
 
-        // LoginMenu loginMenu = new LoginMenu();
+        LoginMenu loginMenu = new LoginMenu();
         
         // Start the login process
-        //loginMenu.displayMenu();
+        loginMenu.showMenu();
+
     }
     //randomtest
 }

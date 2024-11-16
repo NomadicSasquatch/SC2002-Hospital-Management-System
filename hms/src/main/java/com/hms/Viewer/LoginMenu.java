@@ -54,28 +54,29 @@ public class LoginMenu extends UserViewer {
         while (true) {
             this.getUserInput();
         }
-
     }
 
     @Override
     public String getUserInput() {
         String choice = super.getUserInput();
         switch (choice) {
-            case "0":
-                loginUser = new PatientViewer();
-                userManager = new PatientManager();
-                break;
             case "1":
-                loginUser = new DoctorViewer();
-                userManager = new DoctorManager();
+                loginUser = new PatientViewer();
+                //userManager = new PatientManager();
                 break;
             case "2":
-                loginUser = new PharmacistViewer();
-                userManager = new PharmacistManager();
+                loginUser = new DoctorViewer();
+                //userManager = new DoctorManager();
+                System.out.println("Doctor");
                 break;
             case "3":
+                loginUser = new PharmacistViewer();
+                //userManager = new PharmacistManager();
+                break;
+            case "4":
                 loginUser = new AdminViewer();
                 userManager = new AdminManager();
+                System.out.println("Admin");
                 break;
             default:
                 System.out.println("Invalid choice");
@@ -86,11 +87,11 @@ public class LoginMenu extends UserViewer {
     }
 
     private boolean loginRegisterPrompt(UserViewer view, UserManager userManager) {
-        System.out.println("Would you like to login or register?\n0. Login\n1. Register\n2. Back");
+        System.out.println("Would you like to login or register?\n1. Login\n2. Register\n3. Back");
         String userid = "";
         String password = "";
-        switch (view.getUserInput()) {
-            case "0":
+        switch (super.getUserInput()) {
+            case "1":
                 System.out.println("Enter User ID: ");
                 userid = super.getUserInput();
 
@@ -105,24 +106,25 @@ public class LoginMenu extends UserViewer {
                     return true;
                 }
                 break;
-            case "1":
+            case "2":
                 System.out.println("Enter User ID: ");
-                userid = view.getUserInput();
+                userid = super.getUserInput();
                 System.out.println("Enter Email: ");
-                String email = view.getUserInput();
+                String email = super.getUserInput();
                 System.out.println("Enter Name: ");
-                String name = view.getUserInput();
+                String name = super.getUserInput();
                 System.out.println("Enter Password: ");
-                password = view.getUserInput();
+                password = Users.hashPassword(super.getUserInput());
                 System.out.println("Enter Date of Birth (YYYY-MM-DD): ");
-                LocalDate dob = LocalDate.parse(view.getUserInput());
+                LocalDate dob = LocalDate.parse(super.getUserInput());
                 UserRole role = view.getRole();
                 System.out.println("Enter gender (M/F): ");
-                boolean gender = view.getUserInput().equalsIgnoreCase("M") ? true : false;
-                Users user = new Users(userid, email, name, Users.hashPassword(password), dob, role, gender);
+                boolean gender = super.getUserInput().equalsIgnoreCase("M") ? true : false;
+                Users user = new Users(userid, email, name, password, dob, role, gender);
+                System.out.println(List.of(userid, email, name, password, dob, role, gender));
                 userManager.add(user);
                 break;
-            case "2":
+            case "3":
                 return false;
             default:
                 System.out.println("Invalid choice");

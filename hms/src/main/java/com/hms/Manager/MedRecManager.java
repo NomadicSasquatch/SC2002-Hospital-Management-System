@@ -2,13 +2,14 @@ package com.hms.Manager;
 
 import java.util.List;
 
+import com.hms.Users;
 import com.utils.CSVFile;
 
 import java.io.File;
 
 @SuppressWarnings("unused")
 public class MedRecManager {
-    private static final String MEDREC_FILE = "hms/src/main/java/com/data/medrec.csv";
+    private static final String PATIENT_ROOT = "hms/src/main/java/com/data/PATIENT";
     private static final int RECORD_ID = 0;
     private static final int PATIENT = 1;
     private static final int DIAGNOSIS = 2;
@@ -17,8 +18,10 @@ public class MedRecManager {
     private static final int PRESCRIPTION = 5;
 
     private CSVFile stock;
+    private final String MEDREC_FILE;
 
-    public MedRecManager() {
+    public MedRecManager(Users user) {
+        MEDREC_FILE = PATIENT_ROOT + "/" + user.getUserid() + "/medrec.csv";
         stock = FileManager.loadFile(MEDREC_FILE,
                 List.of("recordid", "patient", "diagnosis", "bloodtype", "treatments", "prescriptions"));
     }

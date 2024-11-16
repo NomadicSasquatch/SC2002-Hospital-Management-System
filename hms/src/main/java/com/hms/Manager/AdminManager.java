@@ -21,6 +21,7 @@ public class AdminManager extends UserManager {
     public void add(Users data) {
         FileManager.addFolders(ADMIN_ROOT + "/" + data.getUserid());
         adminCSV.add(List.of(data.getUserid(), data.getEmail(), data.getName(), data.gethashedPassword(), data.getDob().toString(), data.getRole().toString(), String.valueOf(data.getGender())));
+        adminCSV.updateCSVFile();
     }
 
     @Override
