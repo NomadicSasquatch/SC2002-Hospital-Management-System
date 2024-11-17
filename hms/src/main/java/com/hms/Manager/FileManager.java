@@ -14,8 +14,7 @@ public class FileManager{
             try {
                 file.createNewFile();
                 csvFile = new CSVFile(filename);
-                // The first row of the CSV file is the header, with "Item" being the ID
-                csvFile.add(headers);
+                csvFile.setHeaders(headers.toArray(String[]::new));
                 csvFile.updateCSVFile();
                 return csvFile;
             } catch (IOException ex) {

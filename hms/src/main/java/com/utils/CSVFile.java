@@ -165,6 +165,10 @@ public class CSVFile {
         }
     }
 
+    public void setHeaders(String[] headers) {
+        this.headers = headers;
+    }
+
     public boolean hasRecord(String ID) {
         return recordIndex.containsKey(ID);
     }

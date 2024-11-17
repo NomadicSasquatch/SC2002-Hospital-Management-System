@@ -1,7 +1,6 @@
 package com.hms.Viewer;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import com.enumclass.UserRole;
 import com.hms.Users;
@@ -15,19 +14,11 @@ public class LoginMenu extends UserViewer {
     private UserManager userManager;
 
     public LoginMenu() {
-        // Adding sample users for demonstration purposes
-        // users.put("P123", new Patient("P123", "John Doe", UserRole.PATIENT,
-        // "john.doe@example.com", true, LocalDate.of(1990, 5, 10), "password123"));
-        // users.put("D123", new Doctor("D456", "Dr. Smith", UserRole.DOCTOR,
-        // "dr.smith@example.com", true, LocalDate.of(1980, 6, 15), "password123"));
-        // users.put("PM123", new Pharmacist("P123", "John Doe", UserRole.PHARMACIST,
-        // "john.doe@example.com", true, LocalDate.of(1990, 5, 10), "password123"));
-        // users.put("A123", new Admin("D456", "Dr. Smith", UserRole.ADMIN,
-        // "dr.smith@example.com", true, LocalDate.of(1980, 6, 15), "password123"));
     }
 
     @Override
     public void showMenu() {
+        clearScreen();
         String asciiTitle = "\n" +
                 "++++++++++++++++++++++++++++++++++++++++++++++++++++++\n" +
                 "+                H   H  M   M  SSSSS                 +\n" +
@@ -45,14 +36,14 @@ public class LoginMenu extends UserViewer {
 
         // Loop for unlimited login attempts
 
-        System.out.println("---------------------------------------------------------");
-
-        // Get user input for Hospital ID and Password
-        System.out.print(
-                "Please select user group:\n1. Patient\n2. Doctor\n3. Pharmacist\n4. Admin\n5. Exit\nEnter choice: ");
-
         while (true) {
+            System.out.println("---------------------------------------------------------");
+
+            // Get user input for Hospital ID and Password
+            System.out.print(
+                    "Please select user group:\n1. Patient\n2. Doctor\n3. Pharmacist\n4. Admin\n5. Exit\nEnter choice: ");
             this.getUserInput();
+            clearScreen();
         }
     }
 
@@ -62,21 +53,19 @@ public class LoginMenu extends UserViewer {
         switch (choice) {
             case "1":
                 loginUser = new PatientViewer();
-                //userManager = new PatientManager();
+                // userManager = new PatientManager();
                 break;
             case "2":
                 loginUser = new DoctorViewer();
-                //userManager = new DoctorManager();
-                System.out.println("Doctor");
+                // userManager = new DoctorManager();
                 break;
             case "3":
                 loginUser = new PharmacistViewer();
-                //userManager = new PharmacistManager();
+                // userManager = new PharmacistManager();
                 break;
             case "4":
                 loginUser = new AdminViewer();
                 userManager = new AdminManager();
-                System.out.println("Admin");
                 break;
             default:
                 System.out.println("Invalid choice");
@@ -87,6 +76,7 @@ public class LoginMenu extends UserViewer {
     }
 
     private boolean loginRegisterPrompt(UserViewer view, UserManager userManager) {
+        clearScreen();
         System.out.println("Would you like to login or register?\n1. Login\n2. Register\n3. Back");
         String userid = "";
         String password = "";
@@ -102,8 +92,8 @@ public class LoginMenu extends UserViewer {
                     System.out.println("Login Successful");
                     view.showMenu();
                 } else {
-                    System.out.println("Login Failed, please try again");
-                    return true;
+                    System.out.println("Login Failed, please try again, Press Enter to continue");
+                    super.getUserInput();
                 }
                 break;
             case "2":
@@ -120,9 +110,7 @@ public class LoginMenu extends UserViewer {
                 UserRole role = view.getRole();
                 System.out.println("Enter gender (M/F): ");
                 boolean gender = super.getUserInput().equalsIgnoreCase("M") ? true : false;
-                Users user = new Users(userid, email, name, password, dob, role, gender);
-                System.out.println(List.of(userid, email, name, password, dob, role, gender));
-                userManager.add(user);
+                new AuthController(userManager).register(userid, email, name, password, dob, role, gender);
                 break;
             case "3":
                 return false;

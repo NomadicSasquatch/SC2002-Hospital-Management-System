@@ -1,24 +1,27 @@
 package com.hms;
 
-/**
- * The Users class represents an abstract user in the hospital management
- * system. It contains common attributes and methods shared by all user types.
- *
- * @param email the email address of the user
- * @param name the name of the user
- * @param hashedpassword the hashed password of the user
- * @param userid the unique user ID of the user
- * @param dob the date of birth of the user
- * @param role the role of the user in the system
- * @param gender the gender of the user
- *
- */
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.Arrays;
 
 import com.enumclass.UserRole;
+
+/**
+ * The Users class represents an abstract user in the hospital management
+ * system. It contains common attributes and methods shared by all user types.
+ *
+ * @param email          the email address of the user
+ * @param name           the name of the user
+ * @param hashedpassword the hashed password of the user
+ * @param userid         the unique user ID of the user
+ * @param dob            the date of birth of the user
+ * @param role           the role of the user in the system
+ * @param gender         the gender of the user
+ *
+ */
 
 public class Users {
 
@@ -27,7 +30,8 @@ public class Users {
     private UserRole role;
     private boolean gender;
 
-    public Users(String userid, String email, String name, String hashedpassword, LocalDate dob, UserRole role, boolean gender) {
+    public Users(String userid, String email, String name, String hashedpassword, LocalDate dob, UserRole role,
+            boolean gender) {
         this.email = email;
         this.name = name;
         this.hashedpassword = hashedpassword;
@@ -82,10 +86,22 @@ public class Users {
     public static String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            return Arrays.toString(md.digest(password.getBytes()));
+            return toHexString(md.digest(password.getBytes(StandardCharsets.UTF_8)));
         } catch (NoSuchAlgorithmException e) {
             return null;
         }
+    }
+
+    public static String toHexString(byte[] hash)
+    {
+        BigInteger number = new BigInteger(1, hash);
+        StringBuilder hexString = new StringBuilder(number.toString(16));
+        while (hexString.length() < 64)
+        {
+            hexString.insert(0, '0');
+        }
+ 
+        return hexString.toString();
     }
 
     /**

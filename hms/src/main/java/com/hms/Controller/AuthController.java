@@ -23,11 +23,25 @@ public class AuthController {
         }
     }
 
+    public boolean isUserExist(String userID) {
+        return csv.hasRecord(userID);
+    }
+
     public boolean register(String userid, String email, String name, String password, LocalDate dob,
             UserRole role, boolean gender) {
         try {
             csv.add(List.of(userid, email, name, Users.hashPassword(password), dob.toString(), role.toString(),
                     String.valueOf(gender)));
+            csv.updateCSVFile();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean removeUser(String userid) {
+        try {
+            csv.remove(userid);
             csv.updateCSVFile();
             return true;
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 package com.hms.Manager;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.hms.Users;
@@ -10,6 +11,7 @@ import java.io.File;
 @SuppressWarnings("unused")
 public class MedRecManager {
     private static final String PATIENT_ROOT = "hms/src/main/java/com/data/PATIENT";
+    private static final String[] MEDREC_HEADER = { "recordid", "patient", "diagnosis", "bloodtype", "treatments", "prescriptions" };
     private static final int RECORD_ID = 0;
     private static final int PATIENT = 1;
     private static final int DIAGNOSIS = 2;
@@ -22,8 +24,7 @@ public class MedRecManager {
 
     public MedRecManager(Users user) {
         MEDREC_FILE = PATIENT_ROOT + "/" + user.getUserid() + "/medrec.csv";
-        stock = FileManager.loadFile(MEDREC_FILE,
-                List.of("recordid", "patient", "diagnosis", "bloodtype", "treatments", "prescriptions"));
+        stock = FileManager.loadFile(MEDREC_FILE, Arrays.asList(MEDREC_HEADER));
     }
 
     public List<String> getEntry(String item) {
@@ -33,12 +34,12 @@ public class MedRecManager {
     public boolean updateEntry(String recordid, String patient, String diagnosis, String bloodtype, String treatments,
             String prescriptions) {
         return stock.updateRecord(recordid,
-                List.of(recordid, patient, diagnosis, bloodtype, treatments, prescriptions));
+                Arrays.asList(recordid, patient, diagnosis, bloodtype, treatments, prescriptions));
     }
 
     public void add(String recordid, String patient, String diagnosis, String bloodtype, String treatments,
             String prescriptions) {
-        stock.add(List.of(recordid, patient, diagnosis, bloodtype, treatments, prescriptions));
+        stock.add(Arrays.asList(recordid, patient, diagnosis, bloodtype, treatments, prescriptions));
     }
 
     public void remove(String recordid) {
