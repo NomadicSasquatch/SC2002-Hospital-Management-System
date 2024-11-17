@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 import com.enumclass.UserRole;
 import com.hms.Users;
+import com.hms.Controller.AdminController;
 import com.hms.Controller.AuthController;
-import com.hms.Manager.AdminManager;
 import com.hms.Manager.UserManager;
 
 public class LoginMenu extends UserViewer {
@@ -65,7 +65,7 @@ public class LoginMenu extends UserViewer {
                 break;
             case "4":
                 loginUser = new AdminViewer();
-                userManager = new AdminManager();
+                userManager = new AdminController();
                 break;
             default:
                 System.out.println("Invalid choice");

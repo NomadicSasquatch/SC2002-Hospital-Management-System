@@ -4,34 +4,35 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import com.hms.Appointment;
 import com.hms.Doctor;
 import com.hms.Patient;
+import com.hms.Users;
 import com.utils.CSVFile;
 
-public class AppointmentManager {
-    private static final String PATIENT_ROOT = "hms/src/main/java/com/data/PATIENT";
-    private static final String[] APPOINTMENT_HEADER = { "scheduleid", "doctorid", "patientid", "date", "status" };
+public class AppointmentManager extends DataManager {
+    //changed scheduleid to appointmentid
+    private static final String[] APPOINTMENT_HEADER = { "appointmentid", "doctorid", "patientid", "date", "status" };
     private CSVFile appointmentCSV;
-
-    public AppointmentManager(Patient patient) {
-        this.appointmentCSV = FileManager.loadFile(PATIENT_ROOT + patient.getUserid() + "/appointment.csv", Arrays.asList(APPOINTMENT_HEADER));
+    //from patient to users since more than just users can access appointments aka doctor, patients etc
+    public AppointmentManager(Users user) {
+        //check usage of tostring
+        this.appointmentCSV = FileManager.loadFile(DATA_ROOT + user.getRole().toString() + user.getUserid() + "/appointment.csv", Arrays.asList(APPOINTMENT_HEADER));
     }
 
-    public void createAppointment(String appointmentId, Doctor doctor, String patient, LocalDate date, String status) {
-        List<String> appointmentData = Arrays.asList(appointmentId, doctor.getUserid(), patient, date.toString(), status);
-        appointmentCSV.add(appointmentData);
-        appointmentCSV.updateCSVFile();
+    public void createAppointment(Appointment appointment) {
+        add(appointmentCSV, appointment);
 
-        DoctorScheduleManager doctorScheduleManager = new DoctorScheduleManager(doctor);
-        doctorScheduleManager.remove(Arrays.asList(appointmentId, doctor.getUserid(), date.toString(), status));
+        // DoctorScheduleManager doctorScheduleManager = new DoctorScheduleManager(appointment.getDoctor());
+        // doctorScheduleManager.remove(Arrays.asList(appointmentId, doctor.getUserid(), date.toString(), status));
     }
 
-    public void removeAppointment(String appointmentId) {
-        appointmentCSV.remove(appointmentId);
-        appointmentCSV.updateCSVFile();
+    public void removeAppointment(Appointment appointment) {
+        remove(appointmentCSV, appointment);
     }
-
-    public CSVFile viewAppointments() {
+    //originally viewAppointment;
+    @Override
+    public CSVFile view() {
         return appointmentCSV;
     }
 }

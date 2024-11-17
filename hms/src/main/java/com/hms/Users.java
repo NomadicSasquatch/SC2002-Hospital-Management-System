@@ -6,8 +6,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 
 import com.enumclass.UserRole;
+import com.hms.impl.IDataRepository;
 
 /**
  * The Users class represents an abstract user in the hospital management
@@ -23,7 +25,7 @@ import com.enumclass.UserRole;
  *
  */
 
-public class Users {
+public class Users implements IDataRepository{
 
     private String email, name, hashedpassword, userid;
     private LocalDate dob;
@@ -201,5 +203,20 @@ public class Users {
      */
     public void setGender(boolean gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public String getDataID() {
+        return getUserid();
+    }
+
+    @Override
+    public List<String> getAttributes() {
+        return Arrays.asList(getUserid(), getEmail(), getName(), gethashedPassword(), getDob().toString(), getRole().toString(), String.valueOf(getGender()));
+    }
+
+    @Override
+    public String getDataName() {
+        return getRole().toString() + ;
     }
 }

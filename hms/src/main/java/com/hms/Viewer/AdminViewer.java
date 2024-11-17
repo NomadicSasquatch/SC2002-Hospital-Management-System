@@ -4,12 +4,11 @@ import java.time.LocalDate;
 
 import com.enumclass.UserRole;
 import com.hms.Manager.PatientManager;
-import com.hms.Manager.DoctorManager;
 import com.hms.Manager.PharmacistManager;
-import com.hms.Manager.AdminManager;
 import com.hms.Manager.UserManager;
+import com.hms.Controller.AdminController;
 import com.hms.Controller.AuthController;
-
+import com.hms.Controller.DoctorController;
 import com.hms.Users;
 
 public class AdminViewer extends UserViewer {
@@ -95,7 +94,7 @@ public class AdminViewer extends UserViewer {
                     break;
 
                 case 2:
-                    userManager = new DoctorManager();
+                    userManager = new DoctorController();
                     menuName = "Doctors";
                     break;
 
@@ -105,7 +104,7 @@ public class AdminViewer extends UserViewer {
                     break;
 
                 case 4:
-                    userManager = new AdminManager();
+                    userManager = new AdminController();
                     menuName = "Admins";
                     break;
 

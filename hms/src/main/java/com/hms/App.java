@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 import com.enumclass.UserRole;
-import com.hms.Manager.AdminManager;
+import com.hms.Controller.AdminController;
 import com.hms.Manager.FileManager;
 import com.hms.Viewer.LoginMenu;
 import com.hms.Manager.UserManager;
