@@ -7,15 +7,15 @@ import com.enumclass.Services;
 import com.hms.impl.IDataRepository;
 
 public class AppointmentOutcomeRecord implements IDataRepository {
-    String recordId;
+    private String recordId;
     private LocalDate appointmentDate;
     private Services serviceType;
     private List<Medication> prescriptions;
     private String consultationNotes;
 
-    public AppointmentOutcomeRecord(String recordId, LocalDate appointmenDate, Services serviceType, List<Medication> presriptions, String consultationNotes) {
+    public AppointmentOutcomeRecord(String recordId, LocalDate appointmentDate, Services serviceType, List<Medication> presriptions, String consultationNotes) {
         this.recordId = recordId;
-        this.appointmentDate = appointmenDate;
+        this.appointmentDate = appointmentDate;
         this.serviceType = serviceType;
         this.prescriptions = presriptions;
         this.consultationNotes = consultationNotes;

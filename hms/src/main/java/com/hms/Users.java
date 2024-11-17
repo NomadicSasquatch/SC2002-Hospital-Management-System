@@ -217,6 +217,6 @@ public class Users implements IDataRepository{
 
     @Override
     public String getDataName() {
-        return getRole().toString() + ;
+        return getRole().toString();
     }
 }

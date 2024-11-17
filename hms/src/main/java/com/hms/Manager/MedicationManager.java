@@ -2,11 +2,11 @@ package com.hms.Manager;
 
 import java.util.Arrays;
 
-import com.hms.Manager.Medication;
+import com.hms.Medication;
 import com.utils.CSVFile;
 
 public class MedicationManager extends DataManager {
-    private static final String[] MEDICATION_HEADER = { "medicationID", "name", "stockLevel", "lowStockAlertLevel" };
+    private static final String[] MEDICATION_HEADER = { "medicationID", "name", "stockLevel", "lowStockAlertLevel", "status"};
     private CSVFile medicationCSV;
 
     public MedicationManager() {

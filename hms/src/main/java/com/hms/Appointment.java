@@ -11,7 +11,7 @@ public class Appointment implements IDataRepository {
     private Doctor doctor;
     private Patient patient;
     private String appointmentID;
-    private LocalDate appointmentDate; //check if tallies with UML intention
+    private LocalDate appointmentDate; // check if tallies with UML intention
     private AppointmentStatus status = AppointmentStatus.PENDING;
 
     public Appointment(Doctor doctor, Patient patient, LocalDate appointmentDate) {
@@ -31,6 +31,21 @@ public class Appointment implements IDataRepository {
 
     public String getAppointmentID() {
         return appointmentID;
+    }
+    public LocalDate getAppointmentDate() {
+        return this.appointmentDate;
+    }
+
+    public void setAppointmentDate(LocalDate appointmentDate) {
+        this.appointmentDate = appointmentDate;
+    }
+
+    public AppointmentStatus getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(AppointmentStatus status) {
+        this.status = status;
     }
     @Override
     public String getDataID() {

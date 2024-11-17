@@ -9,13 +9,11 @@ public class ReplenishmentRequest implements IDataRepository {
     private String requestId;
     private String medicationId;
     private int quantity;
-    private String status;
 
-    public ReplenishmentRequest(String requestId, String medicationId, int quantity, String status) {
+    public ReplenishmentRequest(String requestId, String medicationId, int quantity) {
         this.requestId = requestId;
         this.medicationId = medicationId;
         this.quantity = quantity;
-        this.status = status;
     }
 
     public String getRequestId() {
@@ -30,10 +28,6 @@ public class ReplenishmentRequest implements IDataRepository {
         return quantity;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
     @Override
     public String getDataID() {
         return requestId;
@@ -44,8 +38,7 @@ public class ReplenishmentRequest implements IDataRepository {
         return Arrays.asList(
                 requestId,
                 medicationId,
-                String.valueOf(quantity),
-                status
+                String.valueOf(quantity)
         );
     }
 

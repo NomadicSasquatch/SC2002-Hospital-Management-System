@@ -6,7 +6,7 @@ import com.hms.ReplenishmentRequest;
 import com.utils.CSVFile;
 
 public class ReplenishmentRequestManager extends DataManager {
-    private static final String[] REPLENISHMENT_REQUEST_HEADER = { "requestID", "medicationID", "quantity", "status" };
+    private static final String[] REPLENISHMENT_REQUEST_HEADER = { "requestID", "medicationID", "quantity"};
     private CSVFile replenishmentRequestCSV;
 
     public ReplenishmentRequestManager() {
