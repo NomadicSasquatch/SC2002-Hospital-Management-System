@@ -56,7 +56,7 @@ public class Main {
                     String userID = scanner.nextLine();
                     System.out.print("Enter Password: ");
                     String password = scanner.nextLine();
-                    // Password for admin is "password"
+                    // Password for admin is "password"2
                     List<User> optionalUser = authenticationService.authenticate(userID, password);
                     if (!optionalUser.isEmpty()) {
                         User authenticatedUser = optionalUser.get(0);
@@ -226,7 +226,7 @@ public class Main {
         System.out.println("║        Hospital Management System (HMS)        ║");
         System.out.println("╠════════════════════════════════════════════════╣");
         System.out.println("║ 1. Login                                       ║");
-        System.out.println("║ 2. Register as a Patient                       ║");
+        System.out.println("║ 2. Registeration                               ║");
         System.out.println("║ 3. Exit                                        ║");
         System.out.println("╚════════════════════════════════════════════════╝\n");
     }
