@@ -16,7 +16,7 @@ import enums.UserRole;
  */
 public class UserRepository extends CrudRepository<User, String> {
 
-    private static final String USERS_CSV_FILE = "SC2002-Assignment/hms/src/data/users.csv";
+    private static final String USERS_CSV_FILE = "hms/src/data/users.csv";
 
     public UserRepository() {
         super(USERS_CSV_FILE);

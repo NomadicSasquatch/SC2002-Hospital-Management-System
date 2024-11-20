@@ -16,7 +16,7 @@ import abstract_class.CrudRepository;
  */
 public class MedicationRepository extends CrudRepository<Medication, String>{
 
-    private static final String MEDICATION_CSV_FILE = "SC2002-Assignment/hms/src/data/medications.csv";
+    private static final String MEDICATION_CSV_FILE = "hms/src/data/medications.csv";
 
     public MedicationRepository() {
         super(MEDICATION_CSV_FILE);
