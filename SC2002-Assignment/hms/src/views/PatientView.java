@@ -5,6 +5,8 @@ import models.Appointment;
 import models.DoctorSchedule;
 import models.MedicalRecord;
 import models.Prescription;
+import models.User;
+import repositories.UserRepository;
 
 public class PatientView extends View {
 
@@ -29,10 +31,11 @@ public class PatientView extends View {
      * @param appointments
      */
     public void displayAppointments(List<Appointment> appointments) {
+        UserRepository userR = new UserRepository();
         System.out.println("Your Appointments:");
         for (Appointment appointment : appointments) {
             System.out.println("Appointment ID: " + appointment.getAppointmentId()
-                    + ", Doctor ID: " + appointment.getDoctorId()
+                    + ", Doctor ID: " + userR.getDataById(appointment.getDoctorId()).get(0).getName()
                     + ", Date: " + appointment.getDate()
                     + ", Time: " + appointment.getTime()
                     + ", Status: " + appointment.getStatus());
@@ -77,10 +80,12 @@ public class PatientView extends View {
      * @param slots List of available slots within doctor's schedule
      */
     public void displayAvailableSlots(List<DoctorSchedule> slots) {
+        UserRepository userR = new UserRepository();
         System.out.println("Available Slots:");
         int index = 1;
         for (DoctorSchedule slot : slots) {
             System.out.println(index + ". Doctor ID: " + slot.getDoctorId()
+                    + ", Doctor ID: " + userR.getDataById(slot.getDoctorId()).get(0).getName()
                     + ", Date: " + slot.getDate()
                     + ", Start Time: " + slot.getStartTime()
                     + ", End Time: " + slot.getEndTime());

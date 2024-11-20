@@ -191,11 +191,37 @@ public class AdminController extends Controller {
      */
     private void listStaffMembers() {
         System.out.println("Filter by Role (Doctor/Pharmacist/All):");
-        UserRole role = UserRole.valueOf(scanner.nextLine().toUpperCase());
+        String roleFilter = scanner.nextLine().trim();
 
-        List<User> staffMembers = userService.getStaffByRole(role);
-        adminView.displayStaffList(staffMembers);
+        List<User> staffMembers;
+
+        if (roleFilter.equalsIgnoreCase("All")) {
+            staffMembers = userService.getAllUsers(); // Fetch all users
+        } else {
+            try {
+                UserRole role = UserRole.valueOf(roleFilter.toUpperCase());
+                staffMembers = userService.getStaffByRole(role); // Fetch users by role
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid role. Please enter 'Doctor', 'Pharmacist', or 'All'.");
+                return;
+            }
+        }
+
+        if (staffMembers.isEmpty()) {
+            System.out.println("No staff members found.");
+        } else {
+            System.out.println("Staff Members:");
+            for (User user : staffMembers) {
+                System.out.println("ID: " + user.getUserId()
+                        + ", Name: " + user.getName()
+                        + ", Role: " + user.getRole()
+                        + ", Date of Birth: " + user.getDateOfBirth()
+                        + ", Gender: " + user.getGender()
+                        + ", Contact: " + user.getContactInfo());
+            }
+        }
     }
+
 
     /**
      * Views appointment details.

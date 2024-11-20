@@ -56,7 +56,7 @@ public class Main {
             // Display main menu
             System.out.println("Welcome to the Hospital Management System");
             System.out.println("1. Login");
-            System.out.println("2. Register as a Patient");
+            System.out.println("2. Register");
             System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
 
@@ -72,6 +72,29 @@ public class Main {
                     List<User> optionalUser = authenticationService.authenticate(userID, password);
                     if (!optionalUser.isEmpty()) {
                         User authenticatedUser = optionalUser.get(0);
+
+                        // Check if the user is using the default password
+                    if (authenticationService.isUsingDefaultPassword(authenticatedUser)) {
+                        System.out.println("You are using the default password. Please change your password.");
+                        boolean passwordChanged = false;
+
+                        while (!passwordChanged) {
+                            System.out.print("Enter new password: ");
+                            String newPassword = scanner.nextLine();
+                            System.out.print("Confirm new password: ");
+                            String confirmPassword = scanner.nextLine();
+
+                            if (newPassword.equals(confirmPassword)) {
+                                passwordChanged = authenticationService.changePassword(userID, "123", newPassword);
+                            } else {
+                                System.out.println("Passwords do not match. Please try again.");
+                            }
+                        }
+
+                        System.out.println("Password changed successfully. Please log in again.");
+                        continue; // Restart the loop to allow the user to log in again
+                    }
+
                         UserRole role = authenticatedUser.getRole();
 
                         // Route to the appropriate controller based on the user's role
@@ -132,7 +155,7 @@ public class Main {
      */
     private static void registerPatient(Scanner scanner, UserService userService,
             MedicalRecordService medicalRecordService) {
-        System.out.println("=== Patient Registration ===");
+        System.out.println("=== User Registration ===");
 
         // Collect user information
         System.out.print("Enter userID: ");
@@ -144,8 +167,16 @@ public class Main {
             return;
         }
 
-        System.out.print("Enter Password: ");
-        String password = scanner.nextLine();
+        System.out.println("Available roles: ADMIN, DOCTOR, PATIENT, PHARMACIST");
+        System.out.print("Enter Role: ");
+        String roleInput = scanner.nextLine();
+        UserRole role;
+        try {
+            role = UserRole.valueOf(roleInput.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid role. Registration failed.");
+            return;
+        }
         System.out.print("Enter Full Name: ");
         String name = scanner.nextLine();
         System.out.print("Enter Date of Birth (YYYY-MM-DD): ");
@@ -160,8 +191,8 @@ public class Main {
         // Create a new User object
         User newUser = new User(
                 userID,
-                PasswordUtil.hashPassword(password),
-                UserRole.PATIENT,
+                PasswordUtil.hashPassword("12345"),
+                role,
                 name,
                 dob,
                 gender,
@@ -174,7 +205,7 @@ public class Main {
             boolean recordCreated = medicalRecordService.createMedicalRecord(
                     userID, name, dob, gender, contactInfo, bloodType);
             if (recordCreated) {
-                System.out.println("Registration successful. You can now log in with your credentials.");
+                System.out.println("Registration successful. You can now log in with your credentials. User registered successfully with default password '12345'.\"");
             } else {
                 System.out.println("Failed to create medical record. Please contact the administrator.");
             }

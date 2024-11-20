@@ -11,8 +11,12 @@ import java.util.Optional;
 /**
  * AuthenticationService handles user authentication and authorization.
  */
+
+ 
 public class AuthenticationService {
 
+    
+    
     private UserRepository userRepository;
 
     public AuthenticationService(UserRepository userRepository) {
@@ -26,26 +30,38 @@ public class AuthenticationService {
      * @param password The user's password.
      * @return An Optional containing the authenticated user if successful.
      */
+    private static final String DEFAULT_PASSWORD_HASH = PasswordUtil.hashPassword("12345");
+
+    /**
+     * Checks if a user is logging in with the default password.
+     *
+     * @param user The user to check.
+     * @return True if the user is using the default password, false otherwise.
+     */
+    public boolean isUsingDefaultPassword(User user) {
+        return DEFAULT_PASSWORD_HASH.equals(user.getPassword());
+    }
+
+    // Modify authenticate method
     public List<User> authenticate(String userId, String password) {
         List<User> users = userRepository.getDataById(userId);
 
         if (users.isEmpty()) {
-        System.out.println("User not found.");
-        return Collections.emptyList();// Return an empty list if no matching user is found
-    }
+            System.out.println("User not found.");
+            return Collections.emptyList();
+        }
 
-    User user = users.get(0);
+        User user = users.get(0);
+        String hashedPassword = PasswordUtil.hashPassword(password);
 
-       // Compare hashed passwords
-    String hashedPassword = PasswordUtil.hashPassword(password);
-    if (hashedPassword.equals(user.getPassword())) {
-        System.out.println("Authentication successful.");
-        return List.of(user); // Return a single-element list with the authenticated user
-    } else {
-        System.out.println("Invalid password.");
-        return Collections.emptyList(); // Return an empty list if authentication fails
+        if (hashedPassword.equals(user.getPassword())) {
+            System.out.println("Authentication successful.");
+            return List.of(user);
+        } else {
+            System.out.println("Invalid password.");
+            return Collections.emptyList();
+        }
     }
-}
 
     /**
      * Changes the password for a user.
@@ -65,20 +81,14 @@ public class AuthenticationService {
     
         // Assuming we handle the first matching user
         User user = users.get(0);
-    
-        // Verify old password
-        String hashedOldPassword = PasswordUtil.hashPassword(oldPassword);
-        if (!hashedOldPassword.equals(user.getPassword())) {
-            System.out.println("Current password is incorrect.");
-            return false;
-        }
-    
-        // Update password
-        String hashedNewPassword = PasswordUtil.hashPassword(newPassword);
-        user.setPassword(hashedNewPassword);
-        userRepository.updateUser(user);
-    
-        System.out.println("Password changed successfully.");
-        return true;
+
+
+    // Hash and update the new password
+    String hashedNewPassword = PasswordUtil.hashPassword(newPassword);
+    user.setPassword(hashedNewPassword);
+    userRepository.updateUser(user);
+
+    System.out.println("Password changed successfully.");
+    return true;
     }
 }
