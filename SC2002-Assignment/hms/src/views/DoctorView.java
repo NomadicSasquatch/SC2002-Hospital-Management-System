@@ -12,9 +12,9 @@ import models.User;
  * operations in the system. It extends the View class and provides various
  * display methods for doctor functionalities.
  *
- * This class is responsible for displaying: - Doctor's main menu options - 
- * Schedule management interface - Available time slots - Appointments - 
- * Patient medical records - Patient lists
+ * This class is responsible for displaying: - Doctor's main menu options -
+ * Schedule management interface - Available time slots - Appointments - Patient
+ * medical records - Patient lists
  *
  * The class follows the View component pattern in the MVC architecture,
  * handling only the presentation logic for doctor-related features.
@@ -32,16 +32,16 @@ public class DoctorView extends View {
      */
     @Override
     public void displayMenu() {
-        System.out.println("=====================================");
-        System.out.println("        Doctor's Main Menu");
-        System.out.println("=====================================");
-        System.out.println("1. View Appointments");
-        System.out.println("2. Update Appointment Status");
-        System.out.println("3. Access Patient Medical Records");
-        System.out.println("4. Write Prescription");
-        System.out.println("5. Manage Schedule");
-        System.out.println("6. Logout");
-        System.out.println("=====================================");
+        System.out.println("╔════════════════════════════════════════════════╗");
+        System.out.println("║                  Doctor Menu                   ║");
+        System.out.println("╠════════════════════════════════════════════════╣");
+        System.out.println("║ 1. View Appointments                           ║");
+        System.out.println("║ 2. Update Appointment Status                   ║");
+        System.out.println("║ 3. Access Patient Medical Records              ║");
+        System.out.println("║ 4. Write Prescription                          ║");
+        System.out.println("║ 5. Manage Schedule                             ║");
+        System.out.println("║ 6. Logout                                      ║");
+        System.out.println("╚════════════════════════════════════════════════╝\n");
         System.out.print("Enter your choice: ");
     }
 
@@ -50,14 +50,14 @@ public class DoctorView extends View {
      * prints the menu and prompts user for input.
      */
     public void displayScheduleManagementMenu() {
-        System.out.println("=====================================");
-        System.out.println("        Schedule Management");
-        System.out.println("=====================================");
-        System.out.println("1. Add Available Slot");
-        System.out.println("2. Remove Available Slot");
-        System.out.println("3. View Available Slots");
-        System.out.println("4. Back to Main Menu");
-        System.out.println("=====================================");
+        System.out.println("╔════════════════════════════════════════════════╗");
+        System.out.println("║              Schedule Management               ║");
+        System.out.println("╠════════════════════════════════════════════════╣");
+        System.out.println("║ 1. Add Available Slot                          ║");
+        System.out.println("║ 2. Remove Available Slot                       ║");
+        System.out.println("║ 3. View Available Slots                        ║");
+        System.out.println("║ 4. Back to Main Menu                           ║");
+        System.out.println("╚════════════════════════════════════════════════╝\n");
         System.out.print("Enter your choice: ");
     }
 
@@ -67,15 +67,12 @@ public class DoctorView extends View {
      * @param slots List of available slots within doctor's schedule
      */
     public void displayAvailableSlots(List<DoctorSchedule> slots) {
-        System.out.println("=====================================");
-        System.out.println("        Your Available Slots");
-        System.out.println("=====================================");
+        System.out.println("Your Available Slots:");
         for (DoctorSchedule slot : slots) {
             System.out.println("Date: " + slot.getDate()
                     + ", Start Time: " + slot.getStartTime()
                     + ", End Time: " + slot.getEndTime());
         }
-        System.out.println("=====================================");
     }
 
     /**
@@ -84,9 +81,7 @@ public class DoctorView extends View {
      * @param appointments the list of appointments to display
      */
     public void displayAppointments(List<Appointment> appointments) {
-        System.out.println("=====================================");
-        System.out.println("        Your Appointments");
-        System.out.println("=====================================");
+        System.out.println("Your Appointments:");
         for (Appointment appointment : appointments) {
             System.out.println("Appointment ID: " + appointment.getAppointmentId()
                     + ", Patient ID: " + appointment.getPatientId()
@@ -94,7 +89,6 @@ public class DoctorView extends View {
                     + ", Time: " + appointment.getTime()
                     + ", Status: " + appointment.getStatus());
         }
-        System.out.println("=====================================");
     }
 
     /**
@@ -104,16 +98,13 @@ public class DoctorView extends View {
      * information
      */
     public void displayMedicalRecord(MedicalRecord record) {
-        System.out.println("=====================================");
-        System.out.println("    Medical Record for Patient ID: " + record.getPatientId());
-        System.out.println("=====================================");
+        System.out.println("Medical Record for Patient ID: " + record.getPatientId());
         System.out.println("Name: " + record.getName());
         System.out.println("Date of Birth: " + record.getDateOfBirth());
         System.out.println("Gender: " + record.getGender());
         System.out.println("Blood Type: " + record.getBloodType());
         System.out.println("Past Diagnoses: " + String.join(", ", record.getPastDiagnoses()));
         System.out.println("Treatments: " + String.join(", ", record.getTreatments()));
-        System.out.println("=====================================");
     }
 
     /**
@@ -122,9 +113,7 @@ public class DoctorView extends View {
      * @param patients the list of patients to be displayed
      */
     public void displayPatientList(List<User> patients) {
-        System.out.println("=====================================");
-        System.out.println("        Your Patients");
-        System.out.println("=====================================");
+        System.out.println("Your Patients:");
         for (User patient : patients) {
             System.out.println("Patient ID: " + patient.getUserId()
                     + ", Name: " + patient.getName()
@@ -132,23 +121,14 @@ public class DoctorView extends View {
                     + ", Gender: " + patient.getGender()
                     + ", Contact Info: " + patient.getContactInfo());
         }
-        System.out.println("=====================================");
     }
 
-    /**
-     * Displays inventory items for the doctor to see stock of medicines.
-     *
-     * @param allInventoryItems the list of inventory items to display
-     */
     public void displayInventoryItems(List<InventoryItem> allInventoryItems) {
-        System.out.println("=====================================");
-        System.out.println("        Inventory Items");
-        System.out.println("=====================================");
+        System.out.println("Inventory Items:");
         for (InventoryItem item : allInventoryItems) {
             System.out.println("Medicine ID: " + item.getMedicationId()
                     + ", Name: " + item.getMedicationName()
                     + ", Quantity: " + item.getQuantity());
         }
-        System.out.println("=====================================");
     }
 }

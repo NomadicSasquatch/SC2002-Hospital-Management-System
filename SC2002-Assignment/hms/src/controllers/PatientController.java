@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import models.Appointment;
+import models.AppointmentOutcomeRecord;
 import models.DoctorSchedule;
 import models.MedicalRecord;
 import models.Prescription;
 import models.User;
+import services.AppointmentOutcomeService;
 import services.AppointmentService;
 import services.DoctorScheduleService;
 import services.MedicalRecordService;
@@ -31,6 +33,7 @@ public class PatientController extends Controller {
     private PrescriptionService prescriptionService;
     private UserService userService;
     private PatientView patientView;
+    private AppointmentOutcomeService outcomeService;
     private Scanner scanner;
 
     /**
@@ -45,13 +48,14 @@ public class PatientController extends Controller {
      */
     public PatientController(User patientUser, AppointmentService appointmentService,
                              MedicalRecordService medicalRecordService, PrescriptionService prescriptionService,
-                             UserService userService, DoctorScheduleService doctorScheduleService) {
+                             UserService userService, DoctorScheduleService doctorScheduleService, AppointmentOutcomeService outcomeService) {
         this.patientUser = patientUser;
         this.appointmentService = appointmentService;
         this.doctorScheduleService = doctorScheduleService;
         this.medicalRecordService = medicalRecordService;
         this.prescriptionService = prescriptionService;
         this.userService = userService;
+        this.outcomeService = outcomeService;
         this.patientView = new PatientView();
         this.scanner = new Scanner(System.in);
     }
@@ -62,7 +66,7 @@ public class PatientController extends Controller {
      */
     @Override
     public void start() {
-        super.start(patientView, "6");
+        super.start(patientView, "7");
     }
 
     /**
@@ -86,9 +90,12 @@ public class PatientController extends Controller {
                 viewPrescriptions();
                 break;
             case "5":
-                updatePersonalInformation();
+                displayAppointmentOutcomeRecords();
                 break;
             case "6":
+                updatePersonalInformation();
+                break;
+            case "7":
                 logout();
                 break;
             default:
@@ -210,6 +217,15 @@ public class PatientController extends Controller {
             System.out.println("You have no prescriptions.");
         } else {
             patientView.displayPrescriptions(prescriptions);
+        }
+    }
+
+    private void displayAppointmentOutcomeRecords() {
+        List<AppointmentOutcomeRecord> records = outcomeService.getOutcomesByPatientId(patientUser.getUserId());
+        if (records.isEmpty()) {
+            System.out.println("You have no prescriptions.");
+        } else {
+            patientView.displayAppointmentOutcomeRecords(records);
         }
     }
 }

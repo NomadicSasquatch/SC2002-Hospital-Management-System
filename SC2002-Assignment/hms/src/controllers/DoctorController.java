@@ -11,10 +11,12 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 import models.Appointment;
+import models.AppointmentOutcomeRecord;
 import models.DoctorSchedule;
 import models.MedicalRecord;
 import models.Prescription;
 import models.User;
+import services.AppointmentOutcomeService;
 import services.AppointmentService;
 import services.DoctorScheduleService;
 import services.InventoryService;
@@ -24,7 +26,7 @@ import services.UserService;
 import views.DoctorView;
 
 /**
- * DoctorController handles doctor interactions, including appointment management, schedule management, patient medical records, and prescriptions.
+ * DoctorController handles doctor interactions.
  */
 public class DoctorController extends Controller {
 
@@ -35,11 +37,12 @@ public class DoctorController extends Controller {
     private MedicalRecordService medicalRecordService;
     private PrescriptionService prescriptionService;
     private InventoryService inventoryService;
+    private AppointmentOutcomeService outcomeService;
     private DoctorView doctorView;
     private Scanner scanner;
 
     /**
-     * Constructs a new `DoctorController` with the specified services and doctor user.
+     * Constructs a new DoctorController with the specified services and doctor user.
      *
      * @param doctorUser            the user representing the doctor
      * @param appointmentService    the service for managing appointments
@@ -47,11 +50,11 @@ public class DoctorController extends Controller {
      * @param prescriptionService   the service for managing prescriptions
      * @param doctorScheduleService the service for managing doctor schedules
      * @param userService           the service for managing users
-     * @param inventoryService      the service for managing inventory
      */
     public DoctorController(User doctorUser, AppointmentService appointmentService,
                             MedicalRecordService medicalRecordService, PrescriptionService prescriptionService,
-                            DoctorScheduleService doctorScheduleService, UserService userService, InventoryService inventoryService) {
+                            DoctorScheduleService doctorScheduleService, UserService userService, InventoryService inventoryService,
+                            AppointmentOutcomeService outcomeService) {
         this.doctorUser = doctorUser;
         this.doctorScheduleService = doctorScheduleService;
         this.appointmentService = appointmentService;
@@ -59,22 +62,23 @@ public class DoctorController extends Controller {
         this.prescriptionService = prescriptionService;
         this.inventoryService = inventoryService;
         this.userService = userService;
+        this.outcomeService = outcomeService;
         this.doctorView = new DoctorView();
         this.scanner = new Scanner(System.in);
     }
 
     /**
-     * Starts the doctor controller with the specified view.
+     *  Overloaded function that starts the admin controller with the specified view.
+     *
      */
     @Override
     public void start() {
         super.start(doctorView, "6");
     }
 
-    /**
-     * Handles the menu choice and performs the corresponding action.
-     *
-     * @param choice the menu option selected by the user
+    
+    /** 
+     * @param choice
      */
     @Override
     public void handleMenuChoice(String choice) {
@@ -102,10 +106,11 @@ public class DoctorController extends Controller {
         }
     }
 
-    /**
+      /**
      * Allows the doctor to manage their schedule.
      */
-    private void manageSchedule() {
+
+     private void manageSchedule() {
         String subChoice;
         do {
             doctorView.displayScheduleManagementMenu();
@@ -129,9 +134,6 @@ public class DoctorController extends Controller {
         } while (!subChoice.equals("4"));
     }
 
-    /**
-     * Adds a new available slot to the doctor's schedule.
-     */
     private void addAvailableSlot() {
         System.out.println("Enter Date (YYYY-MM-DD):");
         String dateStr = scanner.nextLine();
@@ -156,9 +158,6 @@ public class DoctorController extends Controller {
         }
     }
 
-    /**
-     * Removes an existing available slot from the doctor's schedule.
-     */
     private void removeAvailableSlot() {
         System.out.println("Enter Date (YYYY-MM-DD) of the slot to remove:");
         String dateStr = scanner.nextLine();
@@ -180,16 +179,13 @@ public class DoctorController extends Controller {
         }
     }
 
-    /**
-     * Views the available slots for the doctor.
-     */
     private void viewAvailableSlots() {
         List<DoctorSchedule> slots = doctorScheduleService.getAvailableSlotsForDoctor(doctorUser.getUserId());
         doctorView.displayAvailableSlots(slots);
     }
 
     /**
-     * Views appointments scheduled for the doctor.
+     * Views appointments for the doctor.
      */
     private void viewAppointments() {
         List<Appointment> appointments = appointmentService.getAppointmentsForDoctor(doctorUser.getUserId());
@@ -213,20 +209,25 @@ public class DoctorController extends Controller {
             System.out.println("Appointment not found.");
             return;
         }
+    
 
         Appointment appointment = appointments.get(0);
 
-        // Ensure the appointment belongs to the doctor
         if (!appointment.getDoctorId().equals(doctorUser.getUserId())) {
             System.out.println("You are not authorized to update this appointment.");
             return;
         }
 
-        System.out.println("Enter new status (confirm/cancel):");
+        System.out.println("Enter new status (confirm/cancel/completed):");
         String status = scanner.nextLine();
 
-        if (!status.equalsIgnoreCase("confirm") && !status.equalsIgnoreCase("cancel")) {
+        if (!status.equalsIgnoreCase("confirm") && !status.equalsIgnoreCase("cancel") && !status.equalsIgnoreCase("completed")) {
             System.out.println("Invalid status.");
+            return;
+        }
+        status = status.equalsIgnoreCase("completed")? "completed" : status;
+        if(status == "completed") {
+            addAppointmentOutcome(appointmentId);
             return;
         }
         status = status.equalsIgnoreCase("confirm") ? "confirmed" : "available";
@@ -238,7 +239,6 @@ public class DoctorController extends Controller {
             System.out.println("Failed to update appointment status.");
         }
     }
-
     /**
      * Lists all patients who have had appointments with the doctor.
      */
@@ -388,4 +388,33 @@ public class DoctorController extends Controller {
             System.out.println("Failed to write prescription.");
         }
     }
+    private void addAppointmentOutcome(String appointmentId) {
+        System.out.println("Enter Diagnosis:");
+        String diagnosis = scanner.nextLine();
+
+        System.out.println("Enter Treatment:");
+        String treatment = scanner.nextLine();
+
+        System.out.println("Enter Additional Notes:");
+        String notes = scanner.nextLine();
+
+        AppointmentOutcomeRecord outcomeRecord = new AppointmentOutcomeRecord();
+        outcomeRecord.setAppointmentId(appointmentId);
+        outcomeRecord.setDoctorId(doctorUser.getUserId());
+        // Retrieve patient ID and date from the appointment
+        List<Appointment> appointments = appointmentService.getAppointmentById(appointmentId);
+        if (appointments.isEmpty()) {
+            System.out.println("Appointment not found.");
+            return;
+        }
+        Appointment appointment = appointments.get(0);
+        outcomeRecord.setPatientId(appointment.getPatientId());
+        outcomeRecord.setDate(appointment.getDate());
+        outcomeRecord.setDiagnosis(diagnosis);
+        outcomeRecord.setTreatment(treatment);
+        outcomeRecord.setNotes(notes);
+
+        outcomeService.addAppointmentOutcome(outcomeRecord);
+    }
+
 }

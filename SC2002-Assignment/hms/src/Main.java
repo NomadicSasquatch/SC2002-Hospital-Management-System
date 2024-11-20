@@ -22,12 +22,14 @@ public class Main {
         InventoryRepository inventoryRepository = new InventoryRepository();
         ReplenishmentRequestRepository replenishmentRequestRepository = new ReplenishmentRequestRepository();
         DoctorScheduleRepository doctorScheduleRepository = new DoctorScheduleRepository();
+        AppointmentOutcomeRepository outcomeRepository = new AppointmentOutcomeRepository();
 
         // Instantiate services
         AuthenticationService authenticationService = new AuthenticationService(userRepository);
         DoctorScheduleService doctorScheduleService = new DoctorScheduleService(doctorScheduleRepository);
         AppointmentService appointmentService = new AppointmentService(appointmentRepository, userRepository,
                 doctorScheduleService);
+        AppointmentOutcomeService outcomeService = new AppointmentOutcomeService(outcomeRepository, appointmentRepository);
         MedicalRecordService medicalRecordService = new MedicalRecordService(medicalRecordRepository, userRepository);
         PrescriptionService prescriptionService = new PrescriptionService(
                 prescriptionRepository, userRepository, inventoryRepository);
@@ -37,14 +39,14 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
-        // Display loading animation
-        showLoadingAnimation();
 
         // Display the "HMS" logo after animation
-        displayHMSLogo();
+        displayWelcomeBanner();
 
         while (!exit) {
             // Display main menu
+
+            displayMainMenu();
             System.out.println("Welcome to the Hospital Management System");
             System.out.println("1. Login");
             System.out.println("2. Register");
@@ -97,13 +99,13 @@ public class Main {
                                 break;
                             case UserRole.DOCTOR:
                                 controller = new DoctorController(
-                                        authenticatedUser, appointmentService, medicalRecordService,
-                                        prescriptionService, doctorScheduleService, userService, inventoryService);
+                                    authenticatedUser, appointmentService, medicalRecordService,
+                                    prescriptionService, doctorScheduleService, userService, inventoryService, outcomeService);
                                 break;
                             case UserRole.PATIENT:
                                 controller = new PatientController(
                                         authenticatedUser, appointmentService, medicalRecordService,
-                                        prescriptionService, userService, doctorScheduleService);
+                                        prescriptionService, userService, doctorScheduleService, outcomeService);
                                 break;
                             case UserRole.PHARMACIST:
                                 controller = new PharmacistController(
@@ -137,32 +139,9 @@ public class Main {
     /**
      * Shows a loading animation using ASCII characters.
      */
-    private static void showLoadingAnimation() {
-        System.out.print("Loading");
-        try {
-            for (int i = 0; i < 4; i++) {
-                Thread.sleep(1000); // Pause for 1 second
-                System.out.print(".");
-            }
-            System.out.println(); // Move to the next line after the animation
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
-    /**
-     * Displays the HMS logo in ASCII characters.
-     */
-    private static void displayHMSLogo() {
-        System.out.println("=====================================");
-        System.out.println("      H   H  M   M  SSSS");
-        System.out.println("      H   H  MM MM  S    ");
-        System.out.println("      HHHHH  M M M  SSS  ");
-        System.out.println("      H   H  M   M     S ");
-        System.out.println("      H   H  M   M  SSSS ");
-        System.out.println("=====================================");
-    }
 
+ 
     /**
      * Handles patient registration.
      *
@@ -229,5 +208,31 @@ public class Main {
         } else {
             System.out.println("Registration failed. Please try again.");
         }
+    }
+
+
+        private static void displayWelcomeBanner() {
+            System.out.println("==================================================");
+            System.out.println("  __        __   _                                  ");
+            System.out.println("  \\ \\      / /__| | ___ ___  _ __ ___   ___   ");
+            System.out.println("   \\ \\ /\\ / / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\");
+            System.out.println("    \\ V  V /  __/ | (_| (_) | | | | | |  __/ ");
+            System.out.println("     \\_/\\_/ \\___|_|\\___\\___/|_| |_| |_|\\___| ");
+            System.out.println("                                                    ");
+            System.out.println("==================================================\n");
+        }
+        
+
+    /**
+     * Displays the main menu options.
+     */
+    private static void displayMainMenu() {
+        System.out.println("╔════════════════════════════════════════════════╗");
+        System.out.println("║        Hospital Management System (HMS)        ║");
+        System.out.println("╠════════════════════════════════════════════════╣");
+        System.out.println("║ 1. Login                                       ║");
+        System.out.println("║ 2. Register as a Patient                       ║");
+        System.out.println("║ 3. Exit                                        ║");
+        System.out.println("╚════════════════════════════════════════════════╝\n");
     }
 }
