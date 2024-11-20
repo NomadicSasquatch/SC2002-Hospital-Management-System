@@ -24,7 +24,7 @@ import services.UserService;
 import views.DoctorView;
 
 /**
- * DoctorController handles doctor interactions.
+ * DoctorController handles doctor interactions, including appointment management, schedule management, patient medical records, and prescriptions.
  */
 public class DoctorController extends Controller {
 
@@ -47,6 +47,7 @@ public class DoctorController extends Controller {
      * @param prescriptionService   the service for managing prescriptions
      * @param doctorScheduleService the service for managing doctor schedules
      * @param userService           the service for managing users
+     * @param inventoryService      the service for managing inventory
      */
     public DoctorController(User doctorUser, AppointmentService appointmentService,
                             MedicalRecordService medicalRecordService, PrescriptionService prescriptionService,
@@ -63,17 +64,17 @@ public class DoctorController extends Controller {
     }
 
     /**
-     *  Overloaded function that starts the admin controller with the specified view.
-     *
+     * Starts the doctor controller with the specified view.
      */
     @Override
     public void start() {
         super.start(doctorView, "6");
     }
 
-    
-    /** 
-     * @param choice
+    /**
+     * Handles the menu choice and performs the corresponding action.
+     *
+     * @param choice the menu option selected by the user
      */
     @Override
     public void handleMenuChoice(String choice) {
@@ -128,6 +129,9 @@ public class DoctorController extends Controller {
         } while (!subChoice.equals("4"));
     }
 
+    /**
+     * Adds a new available slot to the doctor's schedule.
+     */
     private void addAvailableSlot() {
         System.out.println("Enter Date (YYYY-MM-DD):");
         String dateStr = scanner.nextLine();
@@ -152,6 +156,9 @@ public class DoctorController extends Controller {
         }
     }
 
+    /**
+     * Removes an existing available slot from the doctor's schedule.
+     */
     private void removeAvailableSlot() {
         System.out.println("Enter Date (YYYY-MM-DD) of the slot to remove:");
         String dateStr = scanner.nextLine();
@@ -173,13 +180,16 @@ public class DoctorController extends Controller {
         }
     }
 
+    /**
+     * Views the available slots for the doctor.
+     */
     private void viewAvailableSlots() {
         List<DoctorSchedule> slots = doctorScheduleService.getAvailableSlotsForDoctor(doctorUser.getUserId());
         doctorView.displayAvailableSlots(slots);
     }
 
     /**
-     * Views appointments for the doctor.
+     * Views appointments scheduled for the doctor.
      */
     private void viewAppointments() {
         List<Appointment> appointments = appointmentService.getAppointmentsForDoctor(doctorUser.getUserId());
@@ -203,7 +213,6 @@ public class DoctorController extends Controller {
             System.out.println("Appointment not found.");
             return;
         }
-    
 
         Appointment appointment = appointments.get(0);
 
@@ -229,6 +238,7 @@ public class DoctorController extends Controller {
             System.out.println("Failed to update appointment status.");
         }
     }
+
     /**
      * Lists all patients who have had appointments with the doctor.
      */

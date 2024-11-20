@@ -1,6 +1,8 @@
 package services;
 
 import enums.UserRole;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import models.MedicalRecord;
@@ -127,8 +129,8 @@ public class MedicalRecordService {
                 dateOfBirth,
                 gender,
                 contactInfo,
-                null,
-                null
+                new ArrayList<>(),  
+                new ArrayList<>()
         );
         medicalRecordRepository.addItem(newRecord);
         System.out.println("Medical record created successfully.");

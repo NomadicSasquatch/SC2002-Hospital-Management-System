@@ -16,7 +16,8 @@ import repositories.AppointmentRepository;
 import repositories.UserRepository;
 
 /**
- * AppointmentService handles business logic related to appointments.
+ * AppointmentService handles business logic related to appointments, including scheduling, rescheduling, cancellation,
+ * and checking the availability of doctors for appointments.
  */
 public class AppointmentService {
 
@@ -27,6 +28,13 @@ public class AppointmentService {
     private DoctorScheduleService doctorScheduleService;
 
 
+    /**
+     * Constructs an AppointmentService with the specified repositories and doctor schedule service.
+     *
+     * @param appointmentRepository the repository for managing appointments
+     * @param userRepository the repository for managing users
+     * @param doctorScheduleService the service for managing doctor schedules
+     */
     public AppointmentService(AppointmentRepository appointmentRepository, UserRepository userRepository,
                               DoctorScheduleService doctorScheduleService) {
         this.appointmentRepository = appointmentRepository;
@@ -41,7 +49,7 @@ public class AppointmentService {
      * @param doctorId  The doctor's ID.
      * @param date      The date of the appointment.
      * @param time      The time of the appointment.
-     * @return An Optional containing the appointment if successful.
+     * @return A list containing the scheduled appointment if successful, or an empty list if unsuccessful.
      */
     public List<Appointment> scheduleAppointment(String patientId, String doctorId, String date, String time) {
         // Validate patient and doctor
@@ -49,9 +57,9 @@ public class AppointmentService {
         List<User> doctors = userRepository.getDataById(doctorId);
 
         if (patients.isEmpty() || doctors.isEmpty()) {
-                    System.out.println("Invalid patient or doctor ID.");
-                    return Collections.emptyList();
-                }
+            System.out.println("Invalid patient or doctor ID.");
+            return Collections.emptyList();
+        }
 
         User doctor = doctors.get(0); // Assuming we take the first matching doctor
         if (!doctor.getRole().equals(UserRole.DOCTOR)) {
@@ -103,14 +111,23 @@ public class AppointmentService {
         return List.of(appointment);
     }
 
-    
     /** 
-     * @return String
+     * Generates a unique appointment ID based on the current size of the appointment repository.
+     * 
+     * @return A string representing the generated appointment ID.
      */
     private String generateAppointmentId() {
         return "A" + (appointmentRepository.getAllData().size() + 1);
     }
 
+    /**
+     * Checks whether a doctor is available for a given date and time.
+     *
+     * @param doctorId The doctor's ID.
+     * @param date     The date to check.
+     * @param time     The time to check.
+     * @return True if the doctor is available at the given date and time, otherwise false.
+     */
     private boolean isDoctorAvailable(String doctorId, LocalDate date, LocalTime time) {
         // Check if the time is within any of the doctor's available slots
         List<DoctorSchedule> schedules = doctorScheduleService.getAvailableSlotsForDoctor(doctorId);
@@ -132,12 +149,12 @@ public class AppointmentService {
     }
 
     /**
-     * Checks if a time slot is available for a doctor.
+     * Checks if a time slot is available for a doctor on a specific date.
      *
      * @param doctorId The doctor's ID.
      * @param date     The date to check.
      * @param time     The time to check.
-     * @return True if the slot is available, false otherwise.
+     * @return True if the time slot is available, false otherwise.
      */
     public boolean isSlotAvailable(String doctorId, String date, String time) {
         List<Appointment> doctorAppointments = appointmentRepository.getAppointmentsByDoctorId(doctorId);
@@ -156,7 +173,7 @@ public class AppointmentService {
      * @param appointmentId The ID of the appointment to reschedule.
      * @param newDate       The new date.
      * @param newTime       The new time.
-     * @return The rescheduled appointment if successful.
+     * @return The rescheduled appointment if successful, otherwise an empty list.
      */
     public List<Appointment> rescheduleAppointment(String appointmentId, String newDate, String newTime) {
         List<Appointment> appointments = appointmentRepository.getDataById(appointmentId);
@@ -181,7 +198,7 @@ public class AppointmentService {
 
         // Update appointment in repository
         appointmentRepository.updateAppointment(appointment);
-        System.out.println("Appointment reschedule Pending.");
+        System.out.println("Appointment rescheduled successfully.");
         return List.of(appointment); // Return a list containing the updated appointment
     }
 
@@ -211,7 +228,7 @@ public class AppointmentService {
      * Retrieves a list of available appointment slots for a doctor.
      *
      * @param doctorId The doctor's ID.
-     * @return List of available appointment slots.
+     * @return A list of available appointment slots as strings.
      */
     public List<String> getAvailableSlots(String doctorId) {
         // For simplicity, let's assume the doctor works from 9 AM to 5 PM in one-hour slots

@@ -13,7 +13,9 @@ import utils.PasswordUtil;
 import views.AdminView;
 
 /**
- * AdminController handles administrator interactions.
+ * AdminController handles the interactions and functionalities related to 
+ * managing the administration of the hospital, including user management,
+ * inventory management, appointment details, and replenishment requests.
  */
 public class AdminController extends Controller {
 
@@ -27,8 +29,9 @@ public class AdminController extends Controller {
     /**
      * Constructs an AdminController with the specified services and admin user.
      *
-     * @param userService        the service for managing users
-     * @param inventoryService   the service for managing inventory
+     * @param adminUser the administrator user
+     * @param userService the service for managing users
+     * @param inventoryService the service for managing inventory
      * @param appointmentService the service for managing appointments
      */
     public AdminController(User adminUser, UserService userService, InventoryService inventoryService,
@@ -42,8 +45,7 @@ public class AdminController extends Controller {
     }
 
     /**
-     *  Overloaded function that starts the admin controller with the specified view.
-     *
+     * Starts the AdminController with the specified view.
      */
     public void start() {
         super.start(adminView, "5");
@@ -99,8 +101,7 @@ public class AdminController extends Controller {
                     listStaffMembers();
                     break;
                 case "5":
-                    // Go back to the main menu
-                    break;
+                    break;  // Go back to the main menu
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }
@@ -128,7 +129,7 @@ public class AdminController extends Controller {
 
         User newUser = new User(
                 userId,
-                password, // Default password
+                password,
                 role,
                 name,
                 dob,
@@ -196,11 +197,11 @@ public class AdminController extends Controller {
         List<User> staffMembers;
 
         if (roleFilter.equalsIgnoreCase("All")) {
-            staffMembers = userService.getAllUsers(); // Fetch all users
+            staffMembers = userService.getAllUsers();
         } else {
             try {
                 UserRole role = UserRole.valueOf(roleFilter.toUpperCase());
-                staffMembers = userService.getStaffByRole(role); // Fetch users by role
+                staffMembers = userService.getStaffByRole(role);
             } catch (IllegalArgumentException e) {
                 System.out.println("Invalid role. Please enter 'Doctor', 'Pharmacist', or 'All'.");
                 return;
@@ -221,7 +222,6 @@ public class AdminController extends Controller {
             }
         }
     }
-
 
     /**
      * Views appointment details.
@@ -256,8 +256,7 @@ public class AdminController extends Controller {
                     updateLowStockLevel();
                     break;
                 case "6":
-                    // Go back to the main menu
-                    break;
+                    break;  // Go back to the main menu
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }
