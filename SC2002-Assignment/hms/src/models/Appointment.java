@@ -11,7 +11,6 @@ public class Appointment {
     private AppointmentStatus status; // e.g., "available", "pending", "confirmed"
     private String outcomeRecordId;
 
-
     public Appointment() {
     }
 
@@ -36,8 +35,6 @@ public class Appointment {
         this.status = status;
         this.outcomeRecordId = outcomeRecordId;
     }
-
-    
 
     /**
      * Retrieves the unique identifier for the appointment.
@@ -95,7 +92,7 @@ public class Appointment {
 
     /**
      * Retrieves the date of the appointment.
-     * @implNote The date is formatted as YYYY-MM-DD.
+     * 
      * @return the date of the appointment as a String
      */
     public String getDate() {
@@ -104,7 +101,7 @@ public class Appointment {
 
     /**
      * Sets the date of the appointment.
-     * @implNote The date should be formatted as YYYY-MM-DD.
+     * 
      * @param date the date of the appointment as a String
      */
     public void setDate(String date) {
@@ -113,7 +110,7 @@ public class Appointment {
 
     /**
      * Retrieves the time of the appointment.
-     * @implNote The time is formatted as HH:MM.
+     * 
      * @return the time of the appointment as a String
      */
     public String getTime() {
@@ -122,7 +119,7 @@ public class Appointment {
 
     /**
      * Sets the time of the appointment.
-     * @implNote The time should be formatted as HH:MM.
+     * 
      * @param time the time of the appointment as a String
      */
     public void setTime(String time) {
@@ -131,8 +128,8 @@ public class Appointment {
 
     /**
      * Retrieves the status of the appointment.
-     * @implNote The status can be "confirmed", "cancelled", or "completed".
-     * @return the status of the appointment as a AppointmentStatus enum
+     * 
+     * @return the status of the appointment as an AppointmentStatus enum
      */
     public AppointmentStatus getStatus() {
         return status;
@@ -140,8 +137,8 @@ public class Appointment {
 
     /**
      * Sets the status of the appointment.
-     * @implNote The status should be "confirmed", "cancelled", or "completed".
-     * @param status the status of the appointment as a String
+     * 
+     * @param status the status of the appointment as an AppointmentStatus enum
      */
     public void setStatus(AppointmentStatus status) {
         this.status = status;
@@ -149,6 +146,7 @@ public class Appointment {
 
     /**
      * Retrieves the unique identifier for the outcome record.
+     * 
      * @return the outcome record ID as a String
      */
     public String getOutcomeRecordId() {
@@ -157,6 +155,7 @@ public class Appointment {
 
     /**
      * Sets the unique identifier for the outcome record.
+     * 
      * @param outcomeRecordId the outcome record ID as a String
      */
     public void setOutcomeRecordId(String outcomeRecordId) {

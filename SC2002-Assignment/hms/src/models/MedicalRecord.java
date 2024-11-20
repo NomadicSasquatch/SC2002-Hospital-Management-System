@@ -223,7 +223,7 @@ public class MedicalRecord {
             gender,
             bloodType,
             String.join(";", pastDiagnoses == null ? List.of("") : pastDiagnoses),
-            String.join(";", treatments == null ? List.of("") : pastDiagnoses)
+            String.join(";", treatments == null ? List.of("") : treatments)
         };
     }
 
