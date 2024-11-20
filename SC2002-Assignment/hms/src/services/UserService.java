@@ -160,7 +160,6 @@ public class UserService {
          User user = users.get(0);
          user.setContactInfo(contactInfo);
          userRepository.updateUser(user);
-         System.out.println("Contact information updated successfully.");
          return true;
     }
 
