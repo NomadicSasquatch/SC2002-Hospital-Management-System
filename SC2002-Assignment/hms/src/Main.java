@@ -1,29 +1,14 @@
-
 import controllers.*;
 import repositories.*;
-
 import enums.UserRole;
-
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 import models.User;
-import services.AppointmentService;
-import services.AuthenticationService;
-import services.DoctorScheduleService;
-import services.InventoryService;
-import services.MedicalRecordService;
-import services.PrescriptionService;
-import services.UserService;
+import services.*;
 import utils.PasswordUtil;
 
-
-/**
- * Main is the entry point of the Hospital Management System application.
- */
 public class Main {
 
-    
     /**
      * Entry point of the application.
      * @param args startup arguments
@@ -52,6 +37,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
+        // Display loading animation
+        showLoadingAnimation();
+
+        // Display the "HMS" logo after animation
+        displayHMSLogo();
+
         while (!exit) {
             // Display main menu
             System.out.println("Welcome to the Hospital Management System");
@@ -74,26 +65,26 @@ public class Main {
                         User authenticatedUser = optionalUser.get(0);
 
                         // Check if the user is using the default password
-                    if (authenticationService.isUsingDefaultPassword(authenticatedUser)) {
-                        System.out.println("You are using the default password. Please change your password.");
-                        boolean passwordChanged = false;
+                        if (authenticationService.isUsingDefaultPassword(authenticatedUser)) {
+                            System.out.println("You are using the default password. Please change your password.");
+                            boolean passwordChanged = false;
 
-                        while (!passwordChanged) {
-                            System.out.print("Enter new password: ");
-                            String newPassword = scanner.nextLine();
-                            System.out.print("Confirm new password: ");
-                            String confirmPassword = scanner.nextLine();
+                            while (!passwordChanged) {
+                                System.out.print("Enter new password: ");
+                                String newPassword = scanner.nextLine();
+                                System.out.print("Confirm new password: ");
+                                String confirmPassword = scanner.nextLine();
 
-                            if (newPassword.equals(confirmPassword)) {
-                                passwordChanged = authenticationService.changePassword(userID, "123", newPassword);
-                            } else {
-                                System.out.println("Passwords do not match. Please try again.");
+                                if (newPassword.equals(confirmPassword)) {
+                                    passwordChanged = authenticationService.changePassword(userID, "123", newPassword);
+                                } else {
+                                    System.out.println("Passwords do not match. Please try again.");
+                                }
                             }
-                        }
 
-                        System.out.println("Password changed successfully. Please log in again.");
-                        continue; // Restart the loop to allow the user to log in again
-                    }
+                            System.out.println("Password changed successfully. Please log in again.");
+                            continue; // Restart the loop to allow the user to log in again
+                        }
 
                         UserRole role = authenticatedUser.getRole();
 
@@ -108,18 +99,15 @@ public class Main {
                                 controller = new DoctorController(
                                         authenticatedUser, appointmentService, medicalRecordService,
                                         prescriptionService, doctorScheduleService, userService, inventoryService);
-
                                 break;
                             case UserRole.PATIENT:
                                 controller = new PatientController(
                                         authenticatedUser, appointmentService, medicalRecordService,
                                         prescriptionService, userService, doctorScheduleService);
-
                                 break;
                             case UserRole.PHARMACIST:
                                 controller = new PharmacistController(
                                         authenticatedUser, inventoryService, prescriptionService);
-
                                 break;
                             default:
                                 System.out.println("Invalid role. Access denied.");
@@ -144,6 +132,35 @@ public class Main {
         }
 
         scanner.close();
+    }
+
+    /**
+     * Shows a loading animation using ASCII characters.
+     */
+    private static void showLoadingAnimation() {
+        System.out.print("Loading");
+        try {
+            for (int i = 0; i < 4; i++) {
+                Thread.sleep(1000); // Pause for 1 second
+                System.out.print(".");
+            }
+            System.out.println(); // Move to the next line after the animation
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Displays the HMS logo in ASCII characters.
+     */
+    private static void displayHMSLogo() {
+        System.out.println("=====================================");
+        System.out.println("      H   H  M   M  SSSS");
+        System.out.println("      H   H  MM MM  S    ");
+        System.out.println("      HHHHH  M M M  SSS  ");
+        System.out.println("      H   H  M   M     S ");
+        System.out.println("      H   H  M   M  SSSS ");
+        System.out.println("=====================================");
     }
 
     /**
