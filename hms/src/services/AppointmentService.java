@@ -171,12 +171,11 @@ public class AppointmentService {
     }
 
     /**
-     * Reschedules an existing appointment.
+     * Reschedules an existing appointment to a new date and time.
      *
-     * @param appointmentId The ID of the appointment to reschedule.
-     * @param newDate       The new date.
-     * @param newTime       The new time.
-     * @return The rescheduled appointment if successful, otherwise an empty list.
+     * @param appointmentId The ID of the appointment to be rescheduled.
+     * @return A list containing the updated appointment if rescheduling is successful, 
+     *         or an empty list if the appointment is not found or the new time slot is not available.
      */
     public List<Appointment> rescheduleAppointment(String appointmentId) {
         List<Appointment> appointments = appointmentRepository.getDataById(appointmentId);
