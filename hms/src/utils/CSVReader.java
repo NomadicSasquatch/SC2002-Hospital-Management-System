@@ -1,6 +1,8 @@
 package utils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +11,14 @@ import java.util.List;
  */
 public class CSVReader {
 
-    
-    /** 
-     * @param filePath
-     * @return List<String[]>
+    /**
+     * Reads a CSV file from the specified file path and returns the contents as
+     * a list of string arrays. Each string array represents a row in the CSV
+     * file, with each element in the array representing a cell.
+     *
+     * @param filePath the path to the CSV file to be read
+     * @return a list of string arrays, where each array represents a row in the
+     * CSV file
      */
     public static List<String[]> readCSV(String filePath) {
         List<String[]> records = new ArrayList<>();

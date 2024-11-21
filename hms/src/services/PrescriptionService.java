@@ -1,9 +1,9 @@
 package services;
 
+import java.util.List;
+
 import enums.PrescriptionStatus;
 import enums.UserRole;
-import java.util.List;
-import java.util.Optional;
 import models.InventoryItem;
 import models.Prescription;
 import models.User;
@@ -20,6 +20,13 @@ public class PrescriptionService {
     private UserRepository userRepository;
     private InventoryRepository inventoryRepository;
 
+    /**
+     * Constructs a new PrescriptionService with the specified repositories.
+     *
+     * @param prescriptionRepository the repository for managing prescriptions
+     * @param userRepository the repository for managing users
+     * @param inventoryRepository the repository for managing inventory
+     */
     public PrescriptionService(PrescriptionRepository prescriptionRepository,
                                UserRepository userRepository,
                                InventoryRepository inventoryRepository) {

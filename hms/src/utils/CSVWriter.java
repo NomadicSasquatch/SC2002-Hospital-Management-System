@@ -1,6 +1,8 @@
 package utils;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -9,9 +11,12 @@ import java.util.List;
 public class CSVWriter {
 
     
-    /** 
-     * @param filePath
-     * @param data
+    
+    /**
+     * Writes the provided data to a CSV file at the specified file path.
+     *
+     * @param filePath the path of the file to write the CSV data to
+     * @param data a list of string arrays, where each array represents a row of data to be written to the CSV file
      */
     public static void writeCSV(String filePath, List<String[]> data) {
         String delimiter = ",";

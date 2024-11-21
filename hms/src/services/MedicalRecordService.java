@@ -1,10 +1,9 @@
 package services;
 
-import enums.UserRole;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
+import enums.UserRole;
 import models.MedicalRecord;
 import models.User;
 import repositories.MedicalRecordRepository;
@@ -18,6 +17,12 @@ public class MedicalRecordService {
     private MedicalRecordRepository medicalRecordRepository;
     private UserRepository userRepository;
 
+    /**
+     * Service class for managing medical records.
+     * 
+     * @param medicalRecordRepository the repository for accessing and managing medical records
+     * @param userRepository the repository for accessing and managing user information
+     */
     public MedicalRecordService(MedicalRecordRepository medicalRecordRepository, UserRepository userRepository) {
         this.medicalRecordRepository = medicalRecordRepository;
         this.userRepository = userRepository;

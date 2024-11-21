@@ -1,7 +1,8 @@
 package models;
 
-import enums.PrescriptionStatus;
 import java.time.LocalDate;
+
+import enums.PrescriptionStatus;
 
 /**
  * The Prescription class represents a prescription entity in the system.
@@ -13,10 +14,10 @@ public class Prescription {
     private String doctorId;
     private String medicationId;
     private String medicationName;
-    private String dosage;          // e.g., "1 tablet twice a day"
-    private int quantity;           // Number of units prescribed
-    private String instructions;    // Additional instructions
-    private PrescriptionStatus status;          // e.g., "pending", "dispensed"
+    private String dosage;
+    private int quantity;
+    private String instructions;
+    private PrescriptionStatus status;          
     private LocalDate datePrescribed;
 
     // Constructors
@@ -162,8 +163,22 @@ public class Prescription {
     /**
      * Creates a Prescription object from a CSV record.
      *
-     * @param record An array of strings representing the CSV record.
-     * @return A Prescription object.
+     * @param record A string array containing prescription data in the following order:
+     *               [0] - Prescription ID
+     *               [1] - Appointment ID
+     *               [2] - Patient ID
+     *               [3] - Doctor ID
+     *               [4] - Medication ID
+     *               [5] - Medication name
+     *               [6] - Dosage
+     *               [7] - Quantity
+     *               [8] - Instructions
+     *               [9] - Status (@see {PrescriptionStatus} enum)
+     *               [10] - Date (as LocalDate)
+     * @return A new Prescription object populated with the CSV data
+     * @throws NumberFormatException if the duration cannot be parsed as an integer
+     * @throws IllegalArgumentException if the prescription status is invalid
+     * @throws DateTimeParseException if the date cannot be parsed
      */
     public static Prescription fromCSV(String[] record) {
         return new Prescription(

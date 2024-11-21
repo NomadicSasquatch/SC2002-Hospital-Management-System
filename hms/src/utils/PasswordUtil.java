@@ -39,9 +39,5 @@ public class PasswordUtil {
             hexString.append(hex);
         }
         return hexString.toString();
-    }
-
-    
-
-    
+    }    
 }

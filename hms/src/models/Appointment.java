@@ -13,7 +13,16 @@ public class Appointment {
 
     public Appointment() {
     }
-
+    /**
+     * Constructs an Appointment object with the specified details.
+     *
+     * @param appointmentId     the unique identifier for the appointment
+     * @param patientId         the unique identifier for the patient
+     * @param doctorId          the unique identifier for the doctor
+     * @param date              the date of the appointment
+     * @param time              the time of the appointment
+     * @param status            the status of the appointment
+     */
     public Appointment(String appointmentId, String patientId, String doctorId,
                        String date, String time, AppointmentStatus status) {
         this.appointmentId = appointmentId;
@@ -25,6 +34,17 @@ public class Appointment {
         this.outcomeRecordId = "";
     }
 
+    /**
+     * Overloaded contructor to include outcomeRecordId.
+     * 
+     * @param appointmentId
+     * @param patientId
+     * @param doctorId
+     * @param date
+     * @param time
+     * @param status
+     * @param outcomeRecordId
+     */
     public Appointment(String appointmentId, String patientId, String doctorId,
                        String date, String time, AppointmentStatus status, String outcomeRecordId) {
         this.appointmentId = appointmentId;

@@ -86,10 +86,6 @@ public class PharmacistController extends Controller {
         pharmacistView.displayPrescriptions(prescriptionService.getAllPrescriptions());
     }
 
-    
-
-    
-
     /**
      * Dispenses a prescription.
      */

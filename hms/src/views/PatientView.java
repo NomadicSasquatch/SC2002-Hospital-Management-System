@@ -1,6 +1,7 @@
 package views;
 
 import java.util.List;
+
 import models.Appointment;
 import models.AppointmentOutcomeRecord;
 import models.DoctorSchedule;
@@ -30,8 +31,10 @@ public class PatientView extends View {
     }
 
     
-    /** 
-     * @param appointments
+    /**
+     * Displays a list of appointments.
+     *
+     * @param appointments the list of appointments to display
      */
     public void displayAppointments(List<Appointment> appointments) {
         System.out.println("Your Appointments:");
@@ -92,6 +95,16 @@ public class PatientView extends View {
             index++;
         }
     }
+    
+    /**
+     * Displays the appointment outcome records.
+     *
+     * This method prints out the details of each appointment outcome record in the provided list.
+     * The details include the appointment outcome ID, appointment ID, doctor ID, date, diagnosis,
+     * treatment, and notes.
+     *
+     * @param records a list of AppointmentOutcomeRecord objects to be displayed
+     */
     public void displayAppointmentOutcomeRecords(List<AppointmentOutcomeRecord> records) {
         System.out.println("Your Appointment Outcome Records:");
         for (AppointmentOutcomeRecord record : records) {
