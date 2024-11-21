@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
+
+import controllers.PatientController;
 import models.Appointment;
 import models.DoctorSchedule;
 import models.User;
@@ -26,6 +29,7 @@ public class AppointmentService {
     private AppointmentRepository appointmentRepository;
     private UserRepository userRepository;
     private DoctorScheduleService doctorScheduleService;
+    private Scanner scanner;
 
 
     /**
@@ -40,6 +44,7 @@ public class AppointmentService {
         this.appointmentRepository = appointmentRepository;
         this.userRepository = userRepository;
         this.doctorScheduleService = doctorScheduleService;
+        this.scanner = new Scanner(System.in);
     }
 
     /**
@@ -175,25 +180,31 @@ public class AppointmentService {
      * @param newTime       The new time.
      * @return The rescheduled appointment if successful, otherwise an empty list.
      */
-    public List<Appointment> rescheduleAppointment(String appointmentId, String newDate, String newTime) {
+    public List<Appointment> rescheduleAppointment(String appointmentId) {
         List<Appointment> appointments = appointmentRepository.getDataById(appointmentId);
         if (appointments.isEmpty()) {
             System.out.println("Appointment not found.");
             return Collections.emptyList(); // Return an empty list if no matching appointment is found
         }
-
         Appointment appointment = appointments.get(0);
+        doctorScheduleService.getAvailableSlotsForDoctor(appointment.getDoctorId());
+        System.out.print("Enter Date (YYYY-MM-DD) of the new Appointment Date: ");
+        String dateStr = scanner.nextLine();
+        System.out.print("Enter Start Time (HH:MM) of the slot of the new appointment: ");
+        String startTimeStr = scanner.nextLine();
 
         // Check if the new slot is available
-        boolean isAvailable = isSlotAvailable(appointment.getDoctorId(), newDate, newTime);
+        boolean isAvailable = isDoctorAvailable(appointment.getDoctorId(), LocalDate.parse(dateStr), LocalTime.parse(startTimeStr));
         if (!isAvailable) {
             System.out.println("The new time slot is not available.");
             return Collections.emptyList(); // Return an empty list if the slot is not available
         }
+        cancelAppointment(appointmentId);
+        scheduleAppointment(appointment.getPatientId(), appointment.getDoctorId(), dateStr, startTimeStr);
 
         // Update appointment details
-        appointment.setDate(newDate);
-        appointment.setTime(newTime);
+        appointment.setDate(dateStr);
+        appointment.setTime(startTimeStr);
         appointment.setStatus(AppointmentStatus.PENDING); // Reset status to pending for doctor's approval
 
         // Update appointment in repository
@@ -219,7 +230,9 @@ public class AppointmentService {
         appointment.setStatus(AppointmentStatus.AVAILABLE);
 
         // Update appointment in repository
-        appointmentRepository.updateAppointment(appointment);
+        LocalTime t1 = LocalTime.of(1, 0);
+        appointmentRepository.removeItem(appointment.getAppointmentId());
+        doctorScheduleService.updateDoctorScheduleAfterBooking(appointment.getDoctorId(), LocalDate.parse(appointment.getDate()), LocalTime.parse(appointment.getTime()), LocalTime.parse(appointment.getTime()).plusHours(t1.getHour()));
         System.out.println("Appointment cancelled successfully.");
         return true;
     }

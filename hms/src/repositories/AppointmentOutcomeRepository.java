@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class AppointmentOutcomeRepository extends CrudRepository<AppointmentOutcomeRecord, String> {
 
-    private static final String OUTCOME_CSV_FILE = "SC2002-Assignment/hms/src/data/appointment_outcomes.csv";
+    private static final String OUTCOME_CSV_FILE = "hms/src/data/appointment_outcomes.csv";
 
     public AppointmentOutcomeRepository() {
         super(OUTCOME_CSV_FILE);

@@ -66,7 +66,7 @@ public class PatientController extends Controller {
      */
     @Override
     public void start() {
-        super.start(patientView, "7");
+        super.start(patientView, "9");
     }
 
     /**
@@ -84,18 +84,24 @@ public class PatientController extends Controller {
                 scheduleAppointment();
                 break;
             case "3":
-                accessPersonalMedicalRecord();
+                updateAppointment();
                 break;
             case "4":
-                viewPrescriptions();
+                cancelAppointment();
                 break;
             case "5":
-                displayAppointmentOutcomeRecords();
+                accessPersonalMedicalRecord();
                 break;
             case "6":
-                updatePersonalInformation();
+                viewPrescriptions();
                 break;
             case "7":
+                displayAppointmentOutcomeRecords();
+                break;
+            case "8":
+                updatePersonalInformation();
+                break;
+            case "9":
                 logout();
                 break;
             default:
@@ -218,6 +224,20 @@ public class PatientController extends Controller {
         } else {
             patientView.displayPrescriptions(prescriptions);
         }
+    }
+
+    private void cancelAppointment() {
+        viewAppointments();
+        System.out.print("Enter AppointmentID to cancel: ");
+        String appointmentId = scanner.nextLine();
+        appointmentService.cancelAppointment(appointmentId);
+    }
+
+    private void updateAppointment() {
+        patientView.displayAppointments(appointmentService.getAppointmentsForPatient(patientUser.getUserId()));
+        System.out.print("Enter Appointment ID to Reschedule: ");
+        String appointmentId = scanner.nextLine();
+        appointmentService.rescheduleAppointment(appointmentId);
     }
 
     private void displayAppointmentOutcomeRecords() {

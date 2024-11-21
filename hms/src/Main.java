@@ -88,21 +88,21 @@ public class Main {
                         // Route to the appropriate controller based on the user's role
                         Controller controller = null;
                         switch (role) {
-                            case UserRole.ADMIN:
+                            case ADMIN:
                                 controller = new AdminController(
                                         authenticatedUser, userService, inventoryService, appointmentService);
                                 break;
-                            case UserRole.DOCTOR:
+                            case DOCTOR:
                                 controller = new DoctorController(
                                     authenticatedUser, appointmentService, medicalRecordService,
                                     prescriptionService, doctorScheduleService, userService, inventoryService, outcomeService);
                                 break;
-                            case UserRole.PATIENT:
+                            case PATIENT:
                                 controller = new PatientController(
                                         authenticatedUser, appointmentService, medicalRecordService,
                                         prescriptionService, userService, doctorScheduleService, outcomeService);
                                 break;
-                            case UserRole.PHARMACIST:
+                            case PHARMACIST:
                                 controller = new PharmacistController(
                                         authenticatedUser, inventoryService, prescriptionService);
                                 break;

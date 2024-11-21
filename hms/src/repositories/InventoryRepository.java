@@ -14,7 +14,7 @@ import abstract_class.CrudRepository;
  */
 public class InventoryRepository extends CrudRepository<InventoryItem, String> {
 
-    private static final String INVENTORY_CSV_FILE = "SC2002-Assignment/hms/src/data/inventory.csv";
+    private static final String INVENTORY_CSV_FILE = "hms/src/data/inventory.csv";
 
     public InventoryRepository() {
         super(INVENTORY_CSV_FILE);

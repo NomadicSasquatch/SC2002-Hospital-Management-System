@@ -14,7 +14,7 @@ import abstract_class.CrudRepository;
  * DoctorScheduleRepository handles CRUD operations for DoctorSchedule entities.
  */
 public class DoctorScheduleRepository extends CrudRepository<DoctorSchedule, String> {
-    private static final String SCHEDULE_CSV_FILE = "SC2002-Assignment/hms/src/data/doctor_schedules.csv";
+    private static final String SCHEDULE_CSV_FILE = "hms/src/data/doctor_schedules.csv";
 
     public DoctorScheduleRepository() {
         super(SCHEDULE_CSV_FILE);

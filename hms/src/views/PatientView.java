@@ -20,15 +20,16 @@ public class PatientView extends View {
         System.out.println("╠═══════════════════════════════════════════════════════════════════╣");
         System.out.println("║ 1. View Appointments                                              ║");
         System.out.println("║ 2. Schedule Appointment                                           ║");
-        System.out.println("║ 3. Access Personal Medical Record                                 ║");
-        System.out.println("║ 4. View Prescriptions                                             ║");
-        System.out.println("║ 5. View Appointment Outcome Records                               ║");
-        System.out.println("║ 6. Update Personal Information                                    ║");
-        System.out.println("║ 7. Logout                                                         ║");
+        System.out.println("║ 3. Reschedule Appointment                                         ║");
+        System.out.println("║ 4. Cancel Appointment                                             ║");
+        System.out.println("║ 5. Access Personal Medical Record                                 ║");
+        System.out.println("║ 6. View Prescriptions                                             ║");
+        System.out.println("║ 7. View Appointment Outcome Records                               ║");
+        System.out.println("║ 8. Update Personal Information                                    ║");
+        System.out.println("║ 9. Logout                                                         ║");
         System.out.println("╚═══════════════════════════════════════════════════════════════════╝\n");
         System.out.print("Enter your choice: ");
     }
-
     
     /** 
      * @param appointments

@@ -13,6 +13,7 @@ public class PharmacistView extends View {
      */
     @Override
     public void displayMenu() {
+        System.out.println("╔════════════════════════════════════════════════╗");
         System.out.println("║              Inventory Management              ║");
         System.out.println("╠════════════════════════════════════════════════╣");
         System.out.println("║ 1. View Inventory Items                        ║");
@@ -45,5 +46,16 @@ public class PharmacistView extends View {
                     + ", Quantity: " + item.getQuantity()
                     + ", Low Stock Level: " + item.getLowStockLevel());
         }
+    }
+
+    public void displayInventoryManagementMenu() {
+        System.out.println("╔════════════════════════════════════════════════╗");
+        System.out.println("║              Inventory Management              ║");
+        System.out.println("╠════════════════════════════════════════════════╣");
+        System.out.println("║ 1. View Inventory Items                        ║");
+        System.out.println("║ 2. Check Low Stock Items                       ║");
+        System.out.println("║ 3. Back to Main Menu                           ║");
+        System.out.println("╚════════════════════════════════════════════════╝\n");
+        System.out.print("Enter your choice: ");
     }
 }

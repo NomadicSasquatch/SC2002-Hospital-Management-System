@@ -14,7 +14,7 @@ import abstract_class.CrudRepository;
  */
 public class ReplenishmentRequestRepository extends CrudRepository<ReplenishmentRequest, String> {
 
-    private static final String REQUESTS_CSV_FILE = "SC2002-Assignment/hms/src/data/replenishment_requests.csv";
+    private static final String REQUESTS_CSV_FILE = "hms/src/data/replenishment_requests.csv";
 
     public ReplenishmentRequestRepository() {
         super(REQUESTS_CSV_FILE);
