@@ -1,13 +1,12 @@
 package services;
 
-import models.DoctorSchedule;
-import repositories.DoctorScheduleRepository;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
+
+import models.DoctorSchedule;
+import repositories.DoctorScheduleRepository;
 
 /**
  * DoctorScheduleService handles business logic related to doctor schedules.
@@ -16,12 +15,17 @@ public class DoctorScheduleService {
 
     private DoctorScheduleRepository doctorScheduleRepository;
 
+    /**
+     * Service class for managing doctor schedules.
+     *
+     * @param doctorScheduleRepository the repository used for accessing and
+     * managing doctor schedules
+     */
     public DoctorScheduleService(DoctorScheduleRepository doctorScheduleRepository) {
         this.doctorScheduleRepository = doctorScheduleRepository;
     }
 
-    
-    /** 
+    /**
      * @param doctorId
      * @param date
      * @param startTime
@@ -46,39 +50,52 @@ public class DoctorScheduleService {
     }
 
     public boolean removeAvailableSlot(String doctorId, LocalDate date, LocalTime startTime) {
-    List<DoctorSchedule> slots = doctorScheduleRepository.getDataById(doctorId);
+        List<DoctorSchedule> slots = doctorScheduleRepository.getDataById(doctorId);
 
-    // Find the matching slot
-    List<DoctorSchedule> matchingSlots = slots.stream()
-            .filter(slot -> slot.getDate().equals(date) && slot.getStartTime().equals(startTime))
-            .collect(Collectors.toList());
+        // Find the matching slot
+        List<DoctorSchedule> matchingSlots = slots.stream()
+                .filter(slot -> slot.getDate().equals(date) && slot.getStartTime().equals(startTime))
+                .collect(Collectors.toList());
 
-    if (!matchingSlots.isEmpty()) {
-        // Remove the first matching slot
-        DoctorSchedule slotToRemove = matchingSlots.get(0);
-        doctorScheduleRepository.removeItem(slotToRemove.getDoctorId());
-        return true;
-    } else {
-        System.out.println("Slot not found.");
-        return false;
+        if (!matchingSlots.isEmpty()) {
+            // Remove the first matching slot
+            DoctorSchedule slotToRemove = matchingSlots.get(0);
+            doctorScheduleRepository.removeItem(slotToRemove.getDoctorId());
+            return true;
+        } else {
+            System.out.println("Slot not found.");
+            return false;
+        }
     }
-}
 
-public List<DoctorSchedule> getAvailableSlotsForDoctor(String doctorId) {
-    return doctorScheduleRepository.getDataById(doctorId);
-}
+    /**
+     * Retrieves the available slots for a specific doctor based on their ID.
+     *
+     * @param doctorId the unique identifier of the doctor
+     * @return a list of DoctorSchedule objects representing the available slots
+     * for the specified doctor
+     */
+    public List<DoctorSchedule> getAvailableSlotsForDoctor(String doctorId) {
+        return doctorScheduleRepository.getDataById(doctorId);
+    }
 
-public List<DoctorSchedule> getAllAvailableSlots() {
-    return doctorScheduleRepository.getAllData();
-}
+    /**
+     * Retrieves a list of all available doctor schedule slots.
+     *
+     * @return a list of DoctorSchedule objects representing all available
+     * slots.
+     */
+    public List<DoctorSchedule> getAllAvailableSlots() {
+        return doctorScheduleRepository.getAllData();
+    }
 
     /**
      * Updates the doctor's schedule after an appointment is booked.
      *
-     * @param doctorId            The doctor's ID.
-     * @param date                The date of the appointment.
+     * @param doctorId The doctor's ID.
+     * @param date The date of the appointment.
      * @param appointmentStartTime The start time of the appointment.
-     * @param appointmentEndTime   The end time of the appointment.
+     * @param appointmentEndTime The end time of the appointment.
      */
     public void updateDoctorScheduleAfterBooking(String doctorId, LocalDate date, LocalTime appointmentStartTime, LocalTime appointmentEndTime) {
         // Get the doctor's schedules for that date
@@ -115,8 +132,7 @@ public List<DoctorSchedule> getAllAvailableSlots() {
                     }
                     break; // Exit the loop after updating the schedule
                 }
-                }
             }
         }
     }
-
+}

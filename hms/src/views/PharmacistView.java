@@ -24,7 +24,9 @@ public class PharmacistView extends View {
     }
 
     /**
-     * @param prescriptions
+     * Displays the menu for the pharmacist with the list of prescriptions.
+     *
+     * @param prescriptions List of prescriptions to be displayed
      */
     public void displayPrescriptions(List<Prescription> prescriptions) {
         System.out.println("Pending Prescriptions:");
@@ -38,6 +40,11 @@ public class PharmacistView extends View {
         }
     }
 
+    /**
+     * Displays the list of inventory items.
+     *
+     * @param items the list of InventoryItem objects to be displayed
+     */
     public void displayInventoryList(List<InventoryItem> items) {
         System.out.println("Inventory Items:");
         for (InventoryItem item : items) {
@@ -48,6 +55,13 @@ public class PharmacistView extends View {
         }
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Displays the inventory management menu to the user. Prompts the user to
+     * enter their choice.
+     */
+>>>>>>> origin
     public void displayInventoryManagementMenu() {
         System.out.println("╔════════════════════════════════════════════════╗");
         System.out.println("║              Inventory Management              ║");

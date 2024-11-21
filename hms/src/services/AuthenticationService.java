@@ -1,12 +1,11 @@
 package services;
 
+import java.util.Collections;
+import java.util.List;
+
 import models.User;
 import repositories.UserRepository;
 import utils.PasswordUtil;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * AuthenticationService handles user authentication and authorization.
@@ -19,6 +18,11 @@ public class AuthenticationService {
     
     private UserRepository userRepository;
 
+    /**
+     * Constructs an AuthenticationService with the specified UserRepository.
+     *
+     * @param userRepository the repository used to manage user data
+     */
     public AuthenticationService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

@@ -1,17 +1,21 @@
 package services;
 
-import enums.AppointmentStatus;
-import enums.UserRole;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Optional;
 import java.util.Scanner;
 
 import controllers.PatientController;
+=======
+
+import enums.AppointmentStatus;
+import enums.UserRole;
+>>>>>>> origin
 import models.Appointment;
 import models.DoctorSchedule;
 import models.User;
@@ -322,14 +326,32 @@ public class AppointmentService {
         return java.time.LocalDate.now().toString();
     }
 
+    /**
+     * Retrieves a list of all appointments.
+     *
+     * @return a list of Appointment objects containing all appointments.
+     */
     public List<Appointment> getAllAppointments() {
         return appointmentRepository.getAllData();
     }
 
+    /**
+     * Retrieves a list of appointments based on the given appointment ID.
+     *
+     * @param appointmentId the ID of the appointment to retrieve
+     * @return a list of appointments that match the given appointment ID
+     */
     public List<Appointment> getAppointmentById(String appointmentId) {
         return appointmentRepository.getDataById(appointmentId);
     }
 
+    /**
+     * Updates the status of an appointment identified by the given appointment ID.
+     *
+     * @param appointmentId The ID of the appointment to be updated.
+     * @param status The new status to be set for the appointment.
+     * @return true if the appointment status was successfully updated, false if the appointment was not found.
+     */
     public boolean updateAppointmentStatus(String appointmentId, String status) {
         List<Appointment> appointments = appointmentRepository.getDataById(appointmentId);
     
