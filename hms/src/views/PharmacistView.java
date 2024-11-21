@@ -1,30 +1,18 @@
 package views;
 
 import java.util.List;
+
 import models.InventoryItem;
 import models.Prescription;
 
 public class PharmacistView extends View {
 
-    public void displayMenu() {
-        System.out.println("╔════════════════════════════════════════════════╗");
-        System.out.println("║                Pharmacist Menu                 ║");
-        System.out.println("╠════════════════════════════════════════════════╣");
-        System.out.println("║ 1. View Pending Prescriptions                  ║");
-        System.out.println("║ 2. Dispense Prescription                       ║");
-        System.out.println("║ 3. Manage Inventory                            ║");
-        System.out.println("║ 4. Submit Replenishment Request                ║");
-        System.out.println("║ 5. Logout                                      ║");
-        System.out.println("╚════════════════════════════════════════════════╝\n");
-        System.out.print("Enter your choice: ");
-    }
-
     /**
-     * Displays the inventory management menu to the user.
-     * Prompts the user to enter their choice.
+     * Displays the menu for the pharmacist with options to: Prompts the user to
+     * enter their choice.
      */
-    public void displayInventoryManagementMenu() {
-        System.out.println("╔════════════════════════════════════════════════╗");
+    @Override
+    public void displayMenu() {
         System.out.println("║              Inventory Management              ║");
         System.out.println("╠════════════════════════════════════════════════╣");
         System.out.println("║ 1. View Inventory Items                        ║");
@@ -34,8 +22,7 @@ public class PharmacistView extends View {
         System.out.print("Enter your choice: ");
     }
 
-    
-    /** 
+    /**
      * @param prescriptions
      */
     public void displayPrescriptions(List<Prescription> prescriptions) {
