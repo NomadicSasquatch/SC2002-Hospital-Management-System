@@ -14,19 +14,20 @@ public class PharmacistView extends View {
     @Override
     public void displayMenu() {
         System.out.println("╔════════════════════════════════════════════════╗");
-        System.out.println("║              Inventory Management              ║");
+        System.out.println("║                Pharmacist Menu                 ║");
         System.out.println("╠════════════════════════════════════════════════╣");
-        System.out.println("║ 1. View Inventory Items                        ║");
-        System.out.println("║ 2. Check Low Stock Items                       ║");
-        System.out.println("║ 3. Back to Main Menu                           ║");
+        System.out.println("║ 1. View Pending Prescriptions                  ║");
+        System.out.println("║ 2. Dispense Prescription                       ║");
+        System.out.println("║ 3. Manage Inventory                            ║");
+        System.out.println("║ 4. Submit Replenishment Request                ║");
+        System.out.println("║ 5. Logout                                      ║");
         System.out.println("╚════════════════════════════════════════════════╝\n");
         System.out.print("Enter your choice: ");
     }
 
+
     /**
-     * Displays the menu for the pharmacist with the list of prescriptions.
-     *
-     * @param prescriptions List of prescriptions to be displayed
+     * @param prescriptions
      */
     public void displayPrescriptions(List<Prescription> prescriptions) {
         System.out.println("Pending Prescriptions:");
@@ -39,26 +40,6 @@ public class PharmacistView extends View {
                     + ", Status: " + prescription.getStatus());
         }
     }
-
-    /**
-     * Displays the list of inventory items.
-     *
-     * @param items the list of InventoryItem objects to be displayed
-     */
-    public void displayInventoryList(List<InventoryItem> items) {
-        System.out.println("Inventory Items:");
-        for (InventoryItem item : items) {
-            System.out.println("Medication ID: " + item.getMedicationId()
-                    + ", Name: " + item.getMedicationName()
-                    + ", Quantity: " + item.getQuantity()
-                    + ", Low Stock Level: " + item.getLowStockLevel());
-        }
-    }
-
-    /**
-     * Displays the inventory management menu to the user. Prompts the user to
-     * enter their choice.
-     */
     public void displayInventoryManagementMenu() {
         System.out.println("╔════════════════════════════════════════════════╗");
         System.out.println("║              Inventory Management              ║");
@@ -68,5 +49,15 @@ public class PharmacistView extends View {
         System.out.println("║ 3. Back to Main Menu                           ║");
         System.out.println("╚════════════════════════════════════════════════╝\n");
         System.out.print("Enter your choice: ");
+    }
+
+    public void displayInventoryList(List<InventoryItem> items) {
+        System.out.println("Inventory Items:");
+        for (InventoryItem item : items) {
+            System.out.println("Medication ID: " + item.getMedicationId()
+                    + ", Name: " + item.getMedicationName()
+                    + ", Quantity: " + item.getQuantity()
+                    + ", Low Stock Level: " + item.getLowStockLevel());
+        }
     }
 }
