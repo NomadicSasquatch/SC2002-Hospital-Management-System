@@ -6,16 +6,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-<<<<<<< HEAD
-import java.util.Optional;
 import java.util.Scanner;
-
-import controllers.PatientController;
-=======
 
 import enums.AppointmentStatus;
 import enums.UserRole;
->>>>>>> origin
 import models.Appointment;
 import models.DoctorSchedule;
 import models.User;

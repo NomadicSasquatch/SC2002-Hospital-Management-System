@@ -55,13 +55,10 @@ public class PharmacistView extends View {
         }
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Displays the inventory management menu to the user. Prompts the user to
      * enter their choice.
      */
->>>>>>> origin
     public void displayInventoryManagementMenu() {
         System.out.println("╔════════════════════════════════════════════════╗");
         System.out.println("║              Inventory Management              ║");
